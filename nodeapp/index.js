@@ -1,0 +1,289 @@
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+const pug = require('pug');
+// const PORT = 4009;
+const cors = require('cors');
+const app = express();
+
+app.use(cors());
+
+const db = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "Iamhappy2018@",
+    database: "tray"
+});
+
+db.connect(function (err) {
+    if (err) {
+        throw err
+    };
+    console.log("Connected!");
+    db.query("SELECT * FROM accounts1", function (err, result, fields) {
+        if (err) {
+            throw err
+        };
+        //   console.log(result[1]);
+    })
+});
+    
+
+
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
+app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret: "tray"
+}));
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+
+// 
+
+app.get('/', function (req, res) {
+    if (req.session.loggedin) {
+        res.render('index', {
+            title: `hello ${req.session.userId}`
+        });
+    } else {
+        res.send("you need to log in first");
+    }
+
+});
+
+// app.get('/',function(req,res){
+//     // if (req.session.loggedin) {
+//     //     res.render('index' , {
+//     //         title : `hello ${req.session.name}`
+//     //     });    
+//     // }else{
+//         res.send('hello') ;
+//     // }
+
+// });
+
+
+
+function hash() {
+    return Math.random().toString(36).substring(2, 8)
+}
+
+
+app.post('/api/orders/create', (req, res) => {
+    var order_name = req.body['order_name'],
+        user_id = req.body['user_id'],
+        group_id = req.body['group_id'],
+        canteen_id = req.body['canteen_id'],
+        item_id = req.body['item_id'];
+
+    let order_hash = hash();
+    db.query(`INSERT INTO orders (order_hash,order_name,user_id,group_id,canteen_id,item_id) VALUES ('${order_hash}','${order_name}','${user_id}', '${group_id}', '${canteen_id}','${item_id}')`, (err, result, fields) => {
+        if (err) throw err;
+        else {
+            res.send("order created , with orde_hash: " + order_hash);
+        }
+    });
+});
+app.delete('/api/orders/delete/:hash/:item_id', (req, res) => {
+    //delete the food item from food item list
+    let hashid = req.params.hash,
+        item_id = req.params.item_id;
+    //  console.log(req.params);
+
+    db.query('DELETE FROM orders_content WHERE order_hash  = ? AND item_id = ?', [hashid, item_id], (err, result, fields) => {
+        if (err) throw err;
+        else {
+            // let r  = JSON.parse(result);
+
+            res.send(result);
+        }
+    });
+
+});
+app.patch('api/orders/additem', (req, res) => {
+    //update the order_content
+    var order_hash = req.body['order_hash'],
+        user_id = req.body['user_id'],
+        canteen_id = req.body['canteen_id'],
+        item_id = req.body['item_id'];
+    db.query(`INSERT INTO  orders_content (order_hash,user_id,canteen_id,item_id) VALUES('${order_hash}','${user_id}','${canteen_id}','${item_id}')`, (err, result, fields) => {
+        if (err) throw err;
+        else {
+            res.send("your order item added sucessfully");
+        }
+    })
+
+});
+// app.delete('api/orders/deleteItem/:id&&',(req,res)=>{
+//     //update the order_content
+//     let hashid  = res.params.hash;
+//     db.query(`DELETE FROM orders_content WHERE order_hash  = ${hashid}`,(err,result,fields)=>{
+//         if (err) throw err;
+//         else{
+//             res.send("your order deleted sucessfully");
+//         }
+//     });
+
+
+// });
+
+app.get('/register', (req, res)=>{
+    res.render('register');
+})
+
+app.get('/login', function (req, res) {
+    res.render('login', {
+        title: `hey`
+    });
+});
+
+app.post('/register',(req,res)=>{
+    console.log(req.body.username,req.body.Password);
+    db.query(`INSERT INTO accounts1 (username,password) VALUES ('${req.body.username}','${req.body.Password}')`,(err , result)=>{
+      if(!err)
+    //   res.redirect('/login')
+      res.send("1");
+        // res.render('login',{
+        //     title:'user registered GO TO LOGIN portal'
+        // });
+    } );
+})
+
+
+
+
+
+app.post('/login', function (req, res) {
+    var username = req.body.username;
+    var password = req.body.Password;
+    console.log(req.body);
+
+    if (username && password) {
+        db.query('SELECT username, password FROM accounts1 WHERE username = ? AND password = ?', [username, password], function (err, result, fields) {
+            if (err) {
+                throw err;
+            }
+            if (result.length > 0) {
+                console.log('found');
+                req.session.name = username;
+                req.session.loggedin = true;
+                req.session.userId = result[0].id;
+                // res.redirect('/');
+                res.send("hello"+username);
+                return;
+            } else {
+                console.log(result);
+
+                res.send('incorrect username password');
+            };
+            res.end();
+        });
+    } else {
+        console.log("error");
+        res.end();
+    }
+});
+
+
+app.get('/api/canteens', function (req, res) {
+    // res.render('login' , {
+    //     title : `hey`
+    // });
+    db.query('SELECT * FROM canteens', function (err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.get('/api/canteens/:table_name', function (req, res) {
+    var table_name = req.params.table_name;
+    db.query(`SELECT * FROM ${table_name}`, function (err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+            res.send(result);
+        }
+    });
+});
+
+app.post('/api/creategroup', function (req, res) {
+    var group_name = req.body.group_name;
+    var group_code = Math.floor(100000 + Math.random() * 900000);
+
+    db.query(`INSERT INTO group_table (group_id, group_name, group_code) VALUES (NULL, '${group_name}', '${group_code}')`, function (err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+            res.send(`${group_code}`);
+        }
+    });
+});
+var group_id;
+app.post('/api/joingroup', function (req, res) {
+    var group_code = req.body.group_code;
+    var member_id = req.session.userId;
+
+    console.log(typeof member_id);
+    // var group_id;
+
+    db.query(`SELECT group_id FROM group_table WHERE group_code = ?`, [group_code], function (err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+            group_id = result[0].group_id;
+            console.log(typeof group_id);
+        }
+    });
+
+    // db.query("INSERT INTO group_members (group_id, member_id) VALUES ('"+group_id+"','"+ member_id+"')", function(err,result,fields){
+    //     if (err) {
+    //         throw err;
+    //     }else{
+    //         //res.send(`${group_code}`);
+    //         res.end();
+    //     }
+    // });
+
+});
+
+app.post('/api/joingroups', function (req, res) {
+    var member_id = req.session.userId;
+
+    db.query("INSERT INTO group_members (group_id, member_id) VALUES ('" + group_id + "','" + member_id + "')", function (err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+            //res.send(`${group_code}`);
+            res.end();
+        }
+    });
+});
+
+app.delete('/api/leavegroup', function (req, res) {
+    var member_id = req.body.member_id;
+    var group_id = req.body.group_id;
+
+    console.log(group_id, member_id)
+
+    db.query("DELETE FROM group_members WHERE group_id = ? AND member_id = ?", [group_id, member_id], function (err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+            console.log(result);
+        }
+    });
+});
+
+
+app.listen(3005, function () {
+    console.log("listening");
+});

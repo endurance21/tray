@@ -1,0 +1,10 @@
+.input{
+    display:block
+}
+
+.button{
+    display: block;
+    width:10%;
+    margin:20px auto;
+    background-color: aliceblue;
+}
