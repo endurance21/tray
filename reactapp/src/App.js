@@ -74,20 +74,36 @@ class App extends React.Component{
 
     })
   }
+
   render(){
     console.log(this.state.groupcode)
     return (
       <div className="App">
-{/* 
+
+          {/* { (this.state.loggedIn) ?( <button className={Styles.button} onClick={this.logout}> LOGOUT</button> ): ''} */}
+          {/* {(this.state.loggedIn) ?  (<Home username = {this.state.username }></Home>) : (<Login  isLoggedIn = {this.updateOnLogin} ></Login>)} */}
+
+
+
+
+
+
+          <switch>
+            <Route path="/">
+
           { (this.state.loggedIn) ?( <button className={Styles.button} onClick={this.logout}> LOGOUT</button> ): ''}
-          {(this.state.loggedIn) ?  (<Home username = {this.state.username }></Home>) : (<Login  isLoggedIn = {this.updateOnLogin} ></Login>)} */}
+          {(this.state.loggedIn) ?  (<Home username = {this.state.username }></Home>) : (<Login  isLoggedIn = {this.updateOnLogin} ></Login>)}
 
+            </Route>
+            <Route path="/createGroup">
+              {<CreateGroup   setGroupCode = {this.setGroupCode}></CreateGroup>}
+              { (this.state.groupcode)?(<div>YOUR GROUP CODE IS : {this.state.groupcode}</div>):''}
+            </Route>
+            <Route path="/joinGroup">
+              {<JoinGroup userId ={this.state.userId} ></JoinGroup>}
 
-
-          {/* {<CreateGroup   setGroupCode = {this.setGroupCode}></CreateGroup>}
-          { (this.state.groupcode)?(<div>YOUR GROUP CODE IS : {this.state.groupcode}</div>):''} */}
-
-          {<JoinGroup userId ={this.state.userId} ></JoinGroup>}
+            </Route>
+          </switch>
 
       </div>
    )
