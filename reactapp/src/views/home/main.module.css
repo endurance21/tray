@@ -1,0 +1,14 @@
+.main{
+    border:2px solid red;
+    width:400px;
+    margin:30px auto;
+
+}
+
+.button{
+    width:40%;
+    display: block;
+    background-color: salmon;
+    color:blue;
+    margin:30px auto;
+}

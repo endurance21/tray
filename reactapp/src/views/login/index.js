@@ -14,7 +14,7 @@ export default class Login extends React.Component{
         axios.post(url,data).then((res)=>{
             console.log(res)
             if(res.data == 0){
-                console.log("incorrect username or password");
+                alert("incorrect username or password");
             }else{
                 var user = {
                     username : res.data.user,
@@ -22,6 +22,8 @@ export default class Login extends React.Component{
                     userId : res.data.userId
                 }
                     localStorage.setItem('user',JSON.stringify(user));
+
+                  this.props.isLoggedIn(1);  
             }
         });
 
@@ -31,9 +33,9 @@ export default class Login extends React.Component{
      return (
          <div>
             
-            <label className = {Styles.input} for ='username'> USERNAME  </label><input ref= "username"></input>
+               <label className = {Styles.input} for ='username'> USERNAME  </label><input ref= "username"></input>
                <label className ={Styles.input} for ='password'> PASSWORD</label><input ref = "password"></input>
-             <button className = {Styles.button} onClick = {this.login}>  Login</button>
+               <button className = {Styles.button} onClick = {this.login}>  Login</button>
 
          </div>
      )

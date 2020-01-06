@@ -169,6 +169,7 @@ app.post('/login', function (req, res) {
 
 
     if (username && password) {
+        console.log(`SELECT id, username, password FROM accounts1 WHERE username = ${username} AND password = ${password}`);
         db.query('SELECT id, username, password FROM accounts1 WHERE username = ? AND password = ?', [username, password], function (err, result, fields) {
             if (err) {
                 throw err;
@@ -218,6 +219,8 @@ app.get('/api/canteens', function (req, res) {
     });
 });
 
+
+
 app.get('/api/canteens/:table_name', function (req, res) {
     var table_name = req.params.table_name;
     db.query(`SELECT * FROM ${table_name}`, function (err, result, fields) {
@@ -231,30 +234,76 @@ app.get('/api/canteens/:table_name', function (req, res) {
 
 app.post('/api/creategroup', function (req, res) {
     var group_name = req.body.group_name;
+    var user_id = req.body.userId;
     var group_code = Math.floor(100000 + Math.random() * 900000);
+    var group_id;
+
+
 
     db.query(`INSERT INTO group_table (group_id, group_name, group_code) VALUES (NULL, '${group_name}', '${group_code}')`, function (err, result, fields) {
         if (err) {
             throw err;
         } else {
             res.send(`${group_code}`);
+
+            db.query(`SELECT group_id FROM group_table WHERE group_code = ? `, [group_code], function(err,result,fields){
+                if(err){
+                    throw err;
+                }else{
+                    // console.log(result[0].group_id)
+                    group_id = result[0].group_id;
+                    // console.log(group_id,user_id)
+
+                    db.query(`INSERT INTO group_members (group_id, member_id, is_admin) VALUES (${group_id}, '${user_id}', '1')`, function (err, result, fields) {
+                        if (err) {
+                            throw err;
+                        } else {
+                            // group_id = result[0].group_id;
+                            // console.log(typeof group_id);
+                        }
+                    });
+
+                }
+            });
         }
     });
+
+   
+
+
+
+    
 });
-var group_id;
+// var group_id;
 app.post('/api/joingroup', function (req, res) {
     var group_code = req.body.group_code;
-    var member_id = req.session.userId;
+    var member_id = req.body.userId;
 
-    console.log(typeof member_id);
+
+    // console.log(member_id);
     // var group_id;
 
     db.query(`SELECT group_id FROM group_table WHERE group_code = ?`, [group_code], function (err, result, fields) {
         if (err) {
             throw err;
         } else {
-            group_id = result[0].group_id;
-            console.log(typeof group_id);
+           
+            // group_id = result[0].group_id;
+            // console.log(typeof group_id);
+
+            let group_id = result[0].group_id;
+            console.log(group_id);
+            // console.log(result)
+            db.query("INSERT INTO group_members (group_id, member_id) VALUES ('" + group_id + "','" + member_id + "')", function (err, result, fields) {
+                if (err) {
+                    throw err;
+                } else {
+                    //res.send(`${group_code}`);
+                    res.end();
+                }
+            });
+
+
         }
     });
 
