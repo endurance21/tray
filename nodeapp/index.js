@@ -48,11 +48,13 @@ app.set('view engine', 'pug');
 
 app.get('/', function (req, res) {
     if (req.session.loggedin) {
-        res.render('index', {
-            title: `hello ${req.session.userId}`
-        });
+        // res.render('index', {
+        //     title: `hello ${req.session.userId}`
+        // });
+        console.log(req.session.name)
+        res.send({ loggedIn:1 , username : req.session.name , userId : req.session.userId});
     } else {
-        res.send("you need to log in first");
+        res.send("0");
     }
 
 });
@@ -144,7 +146,7 @@ app.get('/login', function (req, res) {
 });
 
 app.post('/register',(req,res)=>{
-    console.log(req.body.username,req.body.Password);
+      
     db.query(`INSERT INTO accounts1 (username,password) VALUES ('${req.body.username}','${req.body.Password}')`,(err , result)=>{
       if(!err)
     //   res.redirect('/login')
@@ -153,6 +155,7 @@ app.post('/register',(req,res)=>{
         //     title:'user registered GO TO LOGIN portal'
         // });
     } );
+
 })
 
 
@@ -164,8 +167,9 @@ app.post('/login', function (req, res) {
     var password = req.body.Password;
     console.log(req.body);
 
+
     if (username && password) {
-        db.query('SELECT username, password FROM accounts1 WHERE username = ? AND password = ?', [username, password], function (err, result, fields) {
+        db.query('SELECT id, username, password FROM accounts1 WHERE username = ? AND password = ?', [username, password], function (err, result, fields) {
             if (err) {
                 throw err;
             }
@@ -175,12 +179,12 @@ app.post('/login', function (req, res) {
                 req.session.loggedin = true;
                 req.session.userId = result[0].id;
                 // res.redirect('/');
-                res.send("hello"+username);
+                res.send({user : username , loggedIn : true , userId : result[0].id});
                 return;
             } else {
                 console.log(result);
-
-                res.send('incorrect username password');
+                res.send('0');
+                //res.send('incorrect username password');
             };
             res.end();
         });
@@ -190,6 +194,16 @@ app.post('/login', function (req, res) {
     }
 });
 
+app.get('/logOut', function(req,res){
+    if(req.session.loggedin){
+        req.session.destroy(function(){
+            res.send("logged out");
+        });
+        
+    }else{
+        res.send("already logged out");
+    }
+});
 
 app.get('/api/canteens', function (req, res) {
     // res.render('login' , {

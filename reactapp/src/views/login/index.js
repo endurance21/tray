@@ -1,31 +1,29 @@
 import React from 'react'
 import Styles from './main.module.css'
-// var db = require('../../../database/db')
+var  axios  =  require('axios');
 export default class Login extends React.Component{
     
     login = ()=>{
-        var data =  { method: 'POST',
-        body: JSON.stringify({
-            username:this.refs.username.value,
-            Password:this.refs.password.value
-        }),
-        headers: {
-            // 'Accept': 'application/json',
-            // 'Content-Type': 'application/json',
-        }} ;
+        var url = "http://localhost:3005/login";
+        var data =  {
+            'username':this.refs.username.value,
+            'Password':this.refs.password.value
+        };
 
-        
 
-        fetch('http://localhost:3005/login' ,data).then((res) => 
-        { res.json();
-            // if(res){
-            //     console.log(res.json())
-            // //   var fuck = res.body.getReader().read()
-            // //   console.log(fuck.stat);
-            //   //fuck.resolve('Success').then(function(value){console.log(value)}, function(value){})
-            // }
-        }
-            ).then((body) =>{ console.log(body.results)})
+        axios.post(url,data).then((res)=>{
+            console.log(res)
+            if(res.data == 0){
+                console.log("incorrect username or password");
+            }else{
+                var user = {
+                    username : res.data.user,
+                    loggedIn : res.data.loggedIn,
+                    userId : res.data.userId
+                }
+                    localStorage.setItem('user',JSON.stringify(user));
+            }
+        });
 
     }
     render(){
