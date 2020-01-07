@@ -119,6 +119,7 @@ export default class OrderPage2 extends React.Component{
                   } ;
                   axios.post(url,data4).then((res)=>{
                       console.log(res.data);
+                      alert(res.data)
                   })
                })
       

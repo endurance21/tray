@@ -1,0 +1,17 @@
+.memberId{
+    width:90%;
+    margin:5px auto;
+    background-color: wheat;
+}
+
+.username{
+    margin:5px auto;
+    width:90%;
+    background-color: beige;
+}
+.container{
+    border:2px solid red;
+    padding: 5px;
+
+    
+}

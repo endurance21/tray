@@ -3,6 +3,7 @@ import Styles from './main.module.css'
 import ChooseCanteen from '../canteens/chooseCanteen';
 import {BrowserRouter as Router  , Route} from 'react-router-dom'
 import Item from '../items/index'
+import Member from '../member/index'
 var axios  = require('axios')
 
 var canteen_id = '' ;
@@ -17,7 +18,8 @@ export default class OrderPage extends React.Component{
         this.state = {
             canteenId:'',
             orderName:'',
-            myorders:''
+            myorders:'',
+            members:''
         }
     }
 
@@ -31,13 +33,10 @@ export default class OrderPage extends React.Component{
 
         console.log(this.state.canteenId)
 
-    //   console.log(value)
     }
 
     update = (update, itemId)=>{
-            // this.setState({
-
-            // })
+           
 
 
             object[itemId-1].quantity = update + 1 ;
@@ -96,15 +95,7 @@ export default class OrderPage extends React.Component{
                     item_price : res.data[i].item_price,
                     quantity:0
                 });
-                // console.log(object);
-
-                // var Items = function(){
-                //     return(
-                //         object.map((object,index)=>(
-                //             <Item itemId = {Object.item_id} price = {Object.item_price} description = {Object.item_name} ></Item>
-                //         ))
-                //     )
-                // }
+               
                 this.setState({
                     items: object.map((object,index)=>(
                         <Item itemId = {object.item_id} price = {object.item_price} description = {object.item_name}  update = {this.update}></Item>
@@ -125,8 +116,6 @@ export default class OrderPage extends React.Component{
     }
 
     submit  = ()=>{
-
-
          this.setState({
              myorders:object.map((item,index)=>(
                  <li> {item.item_name} :{item.quantity}</li>
@@ -161,8 +150,12 @@ export default class OrderPage extends React.Component{
  
          })
         
-        // this.getOrderId();
         
+    }
+
+
+    fetchMembers = ()=>{
+
     }
 
     render(){
@@ -197,6 +190,10 @@ export default class OrderPage extends React.Component{
                <button className ={Styles.submit} onClick= {this.submit}>SUBMIT MY ORDER</button>
 
             </Route>
+
+            <div className ={Styles.members}>
+               {this.state.members}
+            </div>
 
 
             </Router>
