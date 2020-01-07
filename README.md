@@ -36,7 +36,8 @@ the api is ready just the UI is in the making;
 
               ::::::::::::SELECT CANTEEN ::::::::
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic13.png)
-              ::::::::::ADMIN MODE ::::::::::::::
+\
+             ::::::::::::ADMIN MODE::::::::::::::
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic14.png)
 
 this project has been made by 
