@@ -1,17 +1,17 @@
 .itemId{
-   width:200px;
+   width:90%;
    border:2px solid antiquewhite;
    margin:10px auto;
 }
 
 .price{
-    width:200px;
+    width:90%;
     border:2px solid antiquewhite;
     margin:10px auto;
 }
 
 .description{
-    width:200px;
+    width:90%;
     border:2px solid antiquewhite;
     margin:10px auto;
 }
@@ -24,7 +24,11 @@
 
 .container{
     border:5px solid black;
-    width:300px;
+    width:80%;
     margin:10px auto;
 }
 
+
+.itemList{
+    border:2px solid red
+}

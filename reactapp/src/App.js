@@ -1,10 +1,11 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Register from './views/register/index'
+// import Register from './views/register/index'
 import Login from './views/login/index'
 import Home from './views/home/index'
 import Styles from './main.module.css'
+import Register from './views/register/index'
 import CreateGroup from './views/groups/createGroup/index'
 import JoinGroup from './views/groups/joinGroup/index'
 import orderPage from './views/orders/index'
@@ -86,7 +87,7 @@ class App extends React.Component{
   }
 
   render(){
-    // console.log(this.state.groupcode)
+    console.log(this.state.groupcode)
     return (
 
       <Router>
@@ -102,7 +103,10 @@ class App extends React.Component{
 
           <switch>
 
+           <Route path="/register" exact>
 
+             <Register></Register>
+           </Route>
             <Route path="/" exact>
             { (this.state.loggedIn) ?( <button className={Styles.button} onClick={this.logout}> LOGOUT</button> ): ''}
             {(this.state.loggedIn) ?  (<Home username = {this.state.username }></Home>) : (<Login  isLoggedIn = {this.updateOnLogin} ></Login>)}
@@ -110,7 +114,7 @@ class App extends React.Component{
             </Route>
             <Route path="/createGroup" exact>
               {<CreateGroup  resetGroup = {this.resetGroup} setGroupCode = {this.setGroupCode}></CreateGroup>}
-              {/* { (this.state.groupcode)?(<div>YOUR GROUP CODE IS : {this.state.groupcode}</div>):''} */}
+      
             </Route>
             <Route path="/joinGroup" exact>
               {<JoinGroup userId ={this.state.userId} ></JoinGroup>}

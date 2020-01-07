@@ -1,32 +1,54 @@
 import React from 'react'
 import Styles from './main.module.css'
 import Canteen from './index'
-import {Link} from 'react-router-dom' 
+import { Redirect  } from 'react-router-dom' 
 // var  axios  =  require('axios');
 
 export default class ChooseCanteen extends React.Component{
+   
+        constructor(){
+            super();
+            this.state = {
+               redirect:false
+            }
+        }
 
 
-    createOrder = ()=>{
+    redirectToOrderPage = ()=>{
+        
+    
+
+    
       let inputs = window.document.querySelectorAll('input');
+       inputs.forEach((item,index)=>{
+        if(item.checked){
 
-     inputs.forEach((item,index)=>{
-        if(item.checked)
-        this.props.setCanteen(item.value)
-     })
+        this.props.setCanteenId(item.value)
+        this.props.createOrder();
+        this.setState({
+            redirect:<Redirect to="/orderPage/order"/>
+        });
 
-     this.props.setOrderName(this.refs.orderName.value);
-     this.props.createOrder();
+        }
+
+     });
+
+
 
     }
+
+    // componentDidMount(){
+
+    // }
 
     
     
     render(){
+        console.log("hello")
         return (
 
             <div>
-
+           
 
                 <form>
                 <div className = {Styles.input}  >
@@ -49,7 +71,13 @@ export default class ChooseCanteen extends React.Component{
                 </div>
                 <label for="ordername"> NAME OF ORDER</label><input  id ="ordername" ref = "orderName" />
                 </form>
-                <Link to = "/orderPage/order"><button onClick = {this.createOrder}> CREATE ORDER NOW </button> </Link>
+                {/* <Link to = ""> */}
+                          <button onClick = {this. redirectToOrderPage}> CREATE ORDER NOW </button> 
+                    {/* </Link> */}
+
+                    {this.state.redirect}
+                    {/* <Redirect to ="/asdf"/> */}
+
 
 
 
