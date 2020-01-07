@@ -6,6 +6,7 @@ import Item from '../items/index'
 var axios  = require('axios')
 
 var canteen_id = '' ;
+var object = [];
 export default class OrderPage extends React.Component{
     constructor(){
         super();
@@ -64,7 +65,28 @@ export default class OrderPage extends React.Component{
             canteen_id:(canteen_id+1)
         }
         axios.get(url).then((res)=>{
-            console.log(res.body)
+            console.log(res);
+            for (let i = 0; i < res.data.length; i++) {
+                object.push({
+                    item_id : res.data[i].item_id ,
+                    item_name : res.data[i].item_name,
+                    item_price : res.data[i].item_price,
+                });
+                console.log(object);
+
+                // var Items = function(){
+                //     return(
+                //         object.map((object,index)=>(
+                //             <Item itemId = {Object.item_id} price = {Object.item_price} description = {Object.item_name} ></Item>
+                //         ))
+                //     )
+                // }
+                this.setState({
+                    items: object.map((object,index)=>(
+                        <Item itemId = {object.item_id} price = {object.item_price} description = {object.item_name} ></Item>
+                    ))
+                })
+            }
         })
     }
 
@@ -85,10 +107,12 @@ export default class OrderPage extends React.Component{
 
                 <div className={Styles.itemList}>
                     :::::::CHOOSE YOUR ITEMS ::::::::
-                  <Item itemId = "1" price = "50rs" description = "pizza" ></Item>
-                  <Item itemId = "2" price = "100rs" description = "burger" ></Item>
+                   
+                   {this.state.items}
+                  
+                  {/* <Item itemId = "2" price = "100rs" description = "burger" ></Item>
                   <Item itemId = "3" price = "20rs" description = "asdf" ></Item>
-                  <Item itemId = "4" price = "500rs" description = "akjasf" ></Item>
+                  <Item itemId = "4" price = "500rs" description = "akjasf" ></Item> */}
                </div>
 
             </Route>
