@@ -13,7 +13,8 @@ export default class OrderPage2 extends React.Component{
         super();
         this.state= {
             myorders:'',
-            items:''
+            items:'',
+            userData:''
         }
     }
     update = (update, itemId)=>{
@@ -23,26 +24,55 @@ export default class OrderPage2 extends React.Component{
         console.log(object)
 }
     fetchItems =()=>{
-        let url  = "http://localhost:3005/api/canteens/" + "rajeev_item_list";
-        let data = {
-            canteen_id:(canteen_id+1)
-        }
-        axios.get(url).then((res)=>{
-            for (let i = 0; i < res.data.length; i++) {
-                object.push({
-                    item_id : res.data[i].item_id ,
-                    item_name : res.data[i].item_name,
-                    item_price : res.data[i].item_price,
-                    quantity:0
-                });
-               
-                this.setState({
-                    items: object.map((object,index)=>(
-                        <Item itemId = {object.item_id} price = {object.item_price} description = {object.item_name}  update = {this.update}></Item>
-                    ))
+
+        let url2 = "http://localhost:3005/api/getgroupid";
+        var user =  JSON.parse(localStorage.getItem('user'));
+       let data2 ={
+           member_id:user.userId
+       }
+
+       axios.post(url2 ,data2).then((res)=>{
+           let group_id = res.data.group_id;
+           let url = "http://localhost:3005/api/getinfo";
+           axios.post(url,{group_id:group_id}).then((res)=>{
+               let data  = res.data;
+               this.setState({
+                   userData:data
+               })
+
+               let url  = "http://localhost:3005/api/canteens/" + "rajeev_item_list";
+               let data2 = {
+                canteen_id:data.canteen_id
+                }
+                axios.get(url).then((res)=>{
+                    for (let i = 0; i < res.data.length; i++) {
+                        object.push({
+                            item_id : res.data[i].item_id ,
+                            item_name : res.data[i].item_name,
+                            item_price : res.data[i].item_price,
+                            quantity:0
+                        });
+                       
+                        this.setState({
+                            items: object.map((object,index)=>(
+                                <Item itemId = {object.item_id} price = {object.item_price} description = {object.item_name}  update = {this.update}></Item>
+                            ))
+                        })
+                    }
                 })
-            }
-        })
+
+
+
+           })
+       })
+
+
+        
+        
+    }
+    componentDidMount(){
+        this.fetchItems();
+
     }
     submit  = ()=>{
 
@@ -52,34 +82,53 @@ export default class OrderPage2 extends React.Component{
                 <li> {item.item_name} :{item.quantity}</li>
             ))
         });
-        let url  = "http://localhost:3005/api/orders/additem" ;
-        let user =  JSON.parse(localStorage.getItem('user'));
+        // let user =  JSON.parse(localStorage.getItem('user'));
        //  this.getOrderId();
-        let url2  = "http://localhost:3005/api/order/orderId";
-        let data = {
-          order_name:order_name
+        
 
-        }
-        // let url3 = "http://localhost:3005/api/orders/delete//'"
+        let url2 = "http://localhost:3005/api/getgroupid";
+        var user =  JSON.parse(localStorage.getItem('user'));
+       let data2 ={
+           member_id:user.userId
+       }
+       axios.post(url2 ,data2).then((res)=>{
+        let group_id = res.data.group_id;
+        console.log(res.data)
 
-        axios.post(url2, data).then((res)=>{
-                 order_id  = res.data[0].order_id;
+        let url = "http://localhost:3005/api/getinfo";
+        axios.post(url,{group_id:group_id}).then((res)=>{
+            console.log(res)
+            let data  = res.data;
+            let url3  = "http://localhost:3005/api/order/orderId";
+            let data3 = {
+              order_name:order_name
+    
+            }
+            console.log(data)
 
-                 object.map((item, index)=>{
-                   let data = {
-                       order_id:order_id,
-                       user_id:user.userId,
-                       canteen_id:canteen_id,
-                       item_id:(index+1),
-                       quantity:item.quantity
-                   } ;
-                   axios.post(url,data).then((res)=>{
-                       console.log(res.data);
-                   })
-                })
-       
+            axios.post(url3, data3).then((res)=>{
+                let url  = "http://localhost:3005/api/orders/additem" ;
+
+                object.map((item, index)=>{
+                  let data4 = {
+                      order_id:data[0].order_id,
+                      user_id:user.userId,
+                      canteen_id:data[0].canteen_id,
+                      item_id:(index+1),
+                      quantity:item.quantity
+                  } ;
+                  axios.post(url,data4).then((res)=>{
+                      console.log(res.data);
+                  })
+               })
+      
+
+       })
 
         })
+    });
+
+       
        
        // this.getOrderId();
        
@@ -87,6 +136,7 @@ export default class OrderPage2 extends React.Component{
 
 
     render(){
+
         return (
 
             <div>

@@ -21,15 +21,6 @@ constructor(){
 
     joinGroup = ()=>{
 
-        let url2 = "http://localhost:3005/api/getgroupid";
-        var user =  JSON.parse(localStorage.getItem('user'));
-       let data2 ={
-           member_id:user.userId
-       }
-
-       axios.post(url2 ,data2).then((res)=>{
-           console.log(res.data.group_id);
-       })
 
        let  url = "http://localhost:3005/api/joingroup";
        var user =  JSON.parse(localStorage.getItem('user'));
@@ -37,17 +28,17 @@ constructor(){
            group_code:this.refs.groupCode.value,
            userId:user.userId
        }
-    //    axios.post(url,data).then((res)=>{
-    //      console.log(res);
-    //      let data ={
-    //          value:0
-    //      }
-    //      localStorage.setItem('isGroupAdmin',JSON.stringify(data));
+       axios.post(url,data).then((res)=>{
+         console.log(res);
+         let data ={
+             value:0
+         }
+         localStorage.setItem('isGroupAdmin',JSON.stringify(data));
 
-    //      this.setState({
-    //       orderPage:<Redirect to="/order/orderPage2"/>
-    //      })
-    //    });
+         this.setState({
+          orderPage:<Redirect to="/order/orderPage2"/>
+         })
+       });
 
 
     }
