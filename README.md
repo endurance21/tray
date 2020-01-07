@@ -33,6 +33,6 @@ this project has been made by
 our portfolio link 
 
 ```
-http://divyanshuraj.co                       ==> DIVYANSHU RAJ  
-https://devashish1099.github.io/Portfolio/   ==> DEVASHISH 
+[DIVYANSHU RAJ](https://divyanshuraj.co)                      ==> DIVYANSHU RAJ  
+[DEVASHISH YADAV](https://devashish1099.github.io/Portfolio/)   ==> DEVASHISH 
 ```
