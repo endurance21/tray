@@ -5,9 +5,9 @@ import Styles from './main.module.css'
     render(){
         return (
             <div className={Styles.container}>
-                
+
                 <div className ={Styles.memberId}>
-                  {this.props.memberId}
+                  MEMBER ID==>{this.props.memberId}
                 </div>
 
                 <div className = {Styles.username}>

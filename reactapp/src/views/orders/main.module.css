@@ -15,3 +15,10 @@
     left:43%;
 
 }
+.members{
+    border:2px solid red;
+    width:20%;
+    position:absolute;
+    top:10vh;
+    right:0px;
+}

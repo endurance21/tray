@@ -11,6 +11,7 @@ var order_name = '';
 var object = [];
 var order_hash = ''
 var order_id = ''
+var members = []
 export default class OrderPage extends React.Component{
     constructor(props){
         super();
@@ -21,6 +22,10 @@ export default class OrderPage extends React.Component{
             myorders:'',
             members:''
         }
+    }
+
+    componentDidMount(){
+
     }
 
     setCanteenId = (value)=>{
@@ -103,6 +108,9 @@ export default class OrderPage extends React.Component{
                 })
             }
         })
+
+        this.fetchMembers();
+
     }
 
     getOrderId = ()=>{
@@ -155,11 +163,47 @@ export default class OrderPage extends React.Component{
 
 
     fetchMembers = ()=>{
-
+        // this.setState({
+        //     members:''
+        // })
+        members = [];
+        let url  = "http://localhost:3005/api/getgroupid2";
+        let group_code = JSON.parse(localStorage.getItem('groups')).groupcode;
+        let data = {
+            group_code:group_code
+        }
+        console.log(group_code)
+        axios.post(url, data).then((res)=>{
+            console.log(res)
+              let group_id = res.data.group_id;
+              let url  = "http://localhost:3005/api/getmembers";
+              let data = {
+                  group_id:group_id
+              }
+              console.log(group_id)
+              axios.post(url , data).then((res)=>{
+                console.log(res.data)
+                for (let i = 0; i < res.data.length; i++) {
+                    members.push({
+                        member_id : res.data[i].member_id ,
+                    });
+                   
+                    this.setState({
+                        members:members.map((member,index)=>(
+                            <Member memberId = {member.member_id}></Member>
+                        ))
+                    })
+                }
+              })
+        })
+        
+    }
+    updateList =()=>{
+        this.fetchMembers();
     }
 
     render(){
-        // console.log(this.props.groupCode)
+        console.log(this.state.members)
         return (
             <div>
             <Router>
@@ -174,26 +218,30 @@ export default class OrderPage extends React.Component{
                { (this.props.groupCode)?(<div>YOUR GROUP CODE IS : {this.props.groupCode}</div>):''}
                
                 <div> your ORDER NAME IS : {order_name}</div>
-                <div className={Styles.myorders}> 
-                Final Order Will APPEAR HERE
+             
+                <div className={Styles.myorders}>
+                  Final Order Will APPEAR HERE
                    {this.state.myorders}
                </div>
+
+               <div className ={Styles.members}>
+               <button className ={Styles.submit} onClick= {this.updateList}>update</button>
+
+                <h3>Members List:</h3>
+               {this.state.members}
+            </div>
                 <div className={Styles.itemList}>
                     :::::::CHOOSE YOUR ITEMS ::::::::
                    <ul>
                        {this.state.items}
                    </ul>
                   
-               </div>
-
-   
+               </div>  
                <button className ={Styles.submit} onClick= {this.submit}>SUBMIT MY ORDER</button>
 
             </Route>
 
-            <div className ={Styles.members}>
-               {this.state.members}
-            </div>
+          
 
 
             </Router>
