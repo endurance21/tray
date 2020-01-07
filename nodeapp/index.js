@@ -406,6 +406,23 @@ app.post('/api/items/fetch', (req, res)=>{
     });
 });
 
+app.post('/api/getgroupid', (req, res)=>{
+    let member_id = req.body.member_id;
+    let group_id; 
+    console.log(member_id);
+
+    db.query(`SELECT group_id FROM group_members WHERE member_id = ?`,group_id, (err,result,fields)=>{
+          if(err){
+              throw err
+          }
+          else{
+              console.log(result);
+              group_id = result[0].group_id;
+              res.send(group_id);
+          }
+    });
+});
+
 app.listen(3005, function () {
     console.log("listening");
 });
