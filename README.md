@@ -23,7 +23,10 @@ people at IIT-R or in general face this commom issue of managing the orders of t
 we have merged the idea of PHYSC GAME and IN-GENERAL-OMS and made out something cool called as  # TRAY.
 
 ```
-
+...
+this project is under construction ; 
+the api is ready just the UI is in the making;
+...
 
 this project has been made by 
 ```
