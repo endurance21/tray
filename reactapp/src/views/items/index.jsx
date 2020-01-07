@@ -9,6 +9,7 @@ export default class Item extends React.Component {
         this.price = props.price;
         this.description = props.description;
         this.image = props.image;
+        this.quantity = 0;
 
         this.state ={
             counter:0,
@@ -21,6 +22,8 @@ export default class Item extends React.Component {
  this.setState((state, props)=>{
    return {   counter:state.counter + 1}
  })
+
+  this.props.update(this.state.counter , this.itemId)
  }
 
  decrease = ()=>{
@@ -28,6 +31,8 @@ export default class Item extends React.Component {
     this.setState((state, props)=>{
         return {   counter:state.counter - 1}
       })
+
+ this.props.update(this.state.counter , this.itemId)
  }
 
     render() {

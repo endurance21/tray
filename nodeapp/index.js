@@ -17,6 +17,9 @@ const db = mysql.createConnection({
     database: "tray"
 });
 
+//Iamhappy2018@
+//devu1099
+
 db.connect(function (err) {
     if (err) {
         throw err
@@ -107,15 +110,33 @@ app.post('/api/orders/create', (req, res) => {
    
 });
 
-app.delete('/api/orders/delete/:hash/:item_id', (req, res) => {
+app.post('/api/order/orderId',(req,res)=>{
+
+   let order_name = req.body.order_name;
+//    console.log(order_name)
+   db.query(`SELECT order_id FROM orders WHERE order_name = ?`,order_name,(err,result,fields)=>{
+       if(err){
+           throw err
+       }else{
+        //    console.log(result)
+           res.send(result)
+       }
+   })
+});
+
+app.delete('/api/orders/delete/:order_id/:user_id/:canteen_id/:item_id', (req, res) => {
     //delete the food item from food item list
-    let hashid = req.params.hash,
-        item_id = req.params.item_id;
+    let order_id = req.params.order_id,
+        user_id = req.params.user_id,
+        canteen_id =req.params.canteen_id,
+        item_id=req.params.item_id;
+
     //  console.log(req.params);
 
-    db.query('DELETE FROM orders_content WHERE order_hash  = ? AND item_id = ?', [hashid, item_id], (err, result, fields) => {
+    db.query('DELETE FROM orders_content WHERE order_id = ? AND user_id = ? AND canteen_id = ? AND item_id = ?', [order_id, user_id,canteen_id,item_id], (err, result, fields) => {
         if (err) throw err;
         else {
+
             // let r  = JSON.parse(result);
 
             res.send(result);
@@ -124,13 +145,15 @@ app.delete('/api/orders/delete/:hash/:item_id', (req, res) => {
 
 });
 
-app.patch('api/orders/additem', (req, res) => {
+
+app.post('/api/orders/additem', (req, res) => {
     //update the order_content
-    var order_hash = req.body['order_hash'],
+    var order_id = req.body['order_id'],
         user_id = req.body['user_id'],
         canteen_id = req.body['canteen_id'],
         item_id = req.body['item_id'];
-    db.query(`INSERT INTO  orders_content (order_hash,user_id,canteen_id,item_id) VALUES('${order_hash}','${user_id}','${canteen_id}','${item_id}')`, (err, result, fields) => {
+        quantity = req.body['quantity'];
+    db.query(`INSERT INTO  orders_content (order_id,user_id,canteen_id,item_id,quantity) VALUES('${order_id}','${user_id}','${canteen_id}','${item_id}','${quantity}')`, (err, result, fields) => {
         if (err) throw err;
         else {
             res.send("your order item added sucessfully");

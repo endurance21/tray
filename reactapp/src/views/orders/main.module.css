@@ -4,3 +4,14 @@
     height: 90vh;
     overflow: scroll;
 }
+
+.myorders{
+    border:2px solid blue;
+    width:30%;
+    height: 300px;
+    /* margin:30px auto; */
+    position: absolute;
+    top:10vh;
+    left:43%;
+
+}

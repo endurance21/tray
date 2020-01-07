@@ -24,8 +24,9 @@ export default class ChooseCanteen extends React.Component{
         if(item.checked){
 
         this.props.setCanteenId(item.value)
-        this.props.createOrder();
         this.props.setOrderName(this.refs.orderName.value);
+        this.props.createOrder();
+
         this.setState({
             redirect:<Redirect to="/orderPage/order"/>
         });

@@ -6,14 +6,18 @@ import Item from '../items/index'
 var axios  = require('axios')
 
 var canteen_id = '' ;
-var order_name;
+var order_name = '';
+var object = [];
+var order_hash = ''
+var order_id = ''
 export default class OrderPage extends React.Component{
     constructor(props){
         super();
           console.log(props)
         this.state = {
             canteenId:'',
-            orderName:''
+            orderName:'',
+            myorders:''
         }
     }
 
@@ -30,28 +34,16 @@ export default class OrderPage extends React.Component{
     //   console.log(value)
     }
 
-    createOrder = ()=>{
-        console.log(canteen_id)
-        let user  = JSON.parse(localStorage.getItem('user'));
-        let groups = JSON.parse(localStorage.getItem('groups'));
-        let url  = "http://localhost:3005/api/orders/create";
-        // console.log(user, groups);
-        
-        let data = {
-                order_name:this.state.orderName,
-                user_id:user.userId,
-                group_code:groups.groupcode,
-                canteen_id:canteen_id,
-                item_id:0
-        }
+    update = (update, itemId)=>{
+            // this.setState({
 
-        console.log(data)
-        axios.post(url, data).then((res)=>{
-               console.log(res.body)
-        })
-        this.fetchItems();
+            // })
+
+
+            object[itemId-1].quantity = update + 1 ;
+
+            console.log(object)
     }
-
     setOrderName = (value)=>{
         order_name = value;
         console.log(order_name)
@@ -61,6 +53,30 @@ export default class OrderPage extends React.Component{
         })
     }
 
+    createOrder = ()=>{
+        console.log(canteen_id)
+        let user  = JSON.parse(localStorage.getItem('user'));
+        let groups = JSON.parse(localStorage.getItem('groups'));
+        let url  = "http://localhost:3005/api/orders/create";
+        console.log(order_name);
+        
+        let data = {
+                order_name:order_name,
+                user_id:user.userId,
+                group_code:groups.groupcode,
+                canteen_id:canteen_id,
+                item_id:0
+        }
+
+        console.log(data)
+        axios.post(url, data).then((res)=>{
+               console.log(res.data)
+        })
+        this.fetchItems();
+    }
+
+   
+
 
     fetchItems =()=>{
         let url  = "http://localhost:3005/api/canteens/" + "rajeev_item_list";
@@ -68,12 +84,85 @@ export default class OrderPage extends React.Component{
             canteen_id:(canteen_id+1)
         }
         axios.get(url).then((res)=>{
-            console.log(res.body)
+            // console.log(res);
+            for (let i = 0; i < res.data.length; i++) {
+                object.push({
+                    item_id : res.data[i].item_id ,
+                    item_name : res.data[i].item_name,
+                    item_price : res.data[i].item_price,
+                    quantity:0
+                });
+                // console.log(object);
+
+                // var Items = function(){
+                //     return(
+                //         object.map((object,index)=>(
+                //             <Item itemId = {Object.item_id} price = {Object.item_price} description = {Object.item_name} ></Item>
+                //         ))
+                //     )
+                // }
+                this.setState({
+                    items: object.map((object,index)=>(
+                        <Item itemId = {object.item_id} price = {object.item_price} description = {object.item_name}  update = {this.update}></Item>
+                    ))
+                })
+            }
         })
     }
 
+    getOrderId = ()=>{
+        
+       
+    }
+
+
+    deleteItem = ()=>{
+      
+    }
+
+    submit  = ()=>{
+
+
+         this.setState({
+             myorders:object.map((item,index)=>(
+                 <li> {item.item_name} :{item.quantity}</li>
+             ))
+         });
+         let url  = "http://localhost:3005/api/orders/additem" ;
+         let user =  JSON.parse(localStorage.getItem('user'));
+        //  this.getOrderId();
+         let url2  = "http://localhost:3005/api/order/orderId";
+         let data = {
+           order_name:this.state.orderName
+ 
+         }
+         let url3 = "http://localhost:3005/api/orders/delete//'"
+ 
+         axios.post(url2, data).then((res)=>{
+                  order_id  = res.data[0].order_id;
+
+                  object.map((item, index)=>{
+                    let data = {
+                        order_id:order_id,
+                        user_id:user.userId,
+                        canteen_id:canteen_id,
+                        item_id:(index+1),
+                        quantity:item.quantity
+                    } ;
+                    axios.post(url,data).then((res)=>{
+                        console.log(res.data);
+                    })
+                 })
+        
+ 
+         })
+        
+        // this.getOrderId();
+        
+    }
+
     render(){
-        console.log(this.props.groupCode)
+        // console.log(this.props.groupCode)
         return (
             <div>
             <Router>
@@ -84,21 +173,27 @@ export default class OrderPage extends React.Component{
 
             </Route>
             <Route path = "/orderPage/order" exact>
-                  {/* {this.fetchItems()} */}
                { (this.props.groupCode)?(<div>YOUR GROUP CODE IS : {this.props.groupCode}</div>):''}
                
                 <div> your ORDER NAME IS : {order_name}</div>
-
+                <div className={Styles.myorders}> 
+                Final Order Will APPEAR HERE
+                   {this.state.myorders}
+               </div>
                 <div className={Styles.itemList}>
                     :::::::CHOOSE YOUR ITEMS ::::::::
-                  <Item itemId = "1" price = "50rs" description = "pizza" ></Item>
-                  <Item itemId = "2" price = "100rs" description = "burger" ></Item>
-                  <Item itemId = "3" price = "20rs" description = "asdf" ></Item>
-                  <Item itemId = "4" price = "500rs" description = "akjasf" ></Item>
+                   <ul>
+                       {this.state.items}
+                   </ul>
+                  
                </div>
-               <button className ={Styles.submit}>SUBMIT MY ORDER</button>
+
+   
+               <button className ={Styles.submit} onClick= {this.submit}>SUBMIT MY ORDER</button>
 
             </Route>
+
+
             </Router>
             
             </div>

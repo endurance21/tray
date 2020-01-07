@@ -88,14 +88,11 @@ class App extends React.Component{
   }
 
   render(){
-    // console.log(this.state.groupcode)
     return (
 
       <Router>
       <div className="App">
 
-          {/* { (this.state.loggedIn) ?( <button className={Styles.button} onClick={this.logout}> LOGOUT</button> ): ''} */}
-          {/* {(this.state.loggedIn) ?  (<Home username = {this.state.username }></Home>) : (<Login  isLoggedIn = {this.updateOnLogin} ></Login>)} */}
 
 
 
