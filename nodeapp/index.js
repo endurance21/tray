@@ -438,6 +438,54 @@ app.post('/api/getinfo', (req, res)=>{
     });
 });
 
+app.post('/api/getgroupid2', (req, res)=>{
+    let group_code = req.body.group_code;
+    let group_id; 
+    console.log(group_code);
+
+    db.query(`SELECT group_id FROM group_table WHERE group_code = ?`,group_code, (err,result,fields)=>{
+          if(err){
+              throw err
+          }
+          else{
+              console.log(result);
+              group_id = result[0].group_id;
+              res.send(group_id);
+          }
+    });
+});
+
+app.post('/api/getmembers', (req, res)=>{
+    let group_id = req.body.group_id;
+    console.log(group_id);
+
+    db.query(`SELECT member_id FROM group_members WHERE group_id = ?`,group_id, (err,result,fields)=>{
+          if(err){
+              throw err
+          }
+          else{
+              console.log(result);
+              //group_id = result[0].group_id;
+              res.send(result);
+          }
+    });
+});
+
+app.post('/api/getorders', (req, res)=>{
+    let order_id = req.body.order_id;
+    console.log(order_id);
+
+    db.query(`SELECT * FROM orders_content WHERE order_id = ?`,order_id, (err,result,fields)=>{
+          if(err){
+              throw err
+          }
+          else{
+              console.log(result);
+              res.send(result);
+          }
+    });
+});
+
 app.listen(3005, function () {
     console.log("listening");
 });
