@@ -411,14 +411,14 @@ app.post('/api/getgroupid', (req, res)=>{
     let group_id; 
     console.log(member_id);
 
-    db.query(`SELECT group_id FROM group_members WHERE member_id = ?`,group_id, (err,result,fields)=>{
+    db.query(`SELECT group_id FROM group_members WHERE member_id = ? `,member_id, (err,result,fields)=>{
           if(err){
               throw err
           }
           else{
-              console.log(result);
-              group_id = result[0].group_id;
-              res.send(group_id);
+              console.log(result[0]);
+              
+              res.send(result[0]);
           }
     });
 });

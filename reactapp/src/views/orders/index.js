@@ -79,6 +79,10 @@ export default class OrderPage extends React.Component{
 
 
     fetchItems =()=>{
+       
+       
+
+
         let url  = "http://localhost:3005/api/canteens/" + "rajeev_item_list";
         let data = {
             canteen_id:(canteen_id+1)
@@ -173,6 +177,7 @@ export default class OrderPage extends React.Component{
 
             </Route>
             <Route path = "/orderPage/order" exact>
+
                { (this.props.groupCode)?(<div>YOUR GROUP CODE IS : {this.props.groupCode}</div>):''}
                
                 <div> your ORDER NAME IS : {order_name}</div>
