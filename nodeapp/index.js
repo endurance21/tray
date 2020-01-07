@@ -123,6 +123,7 @@ app.delete('/api/orders/delete/:hash/:item_id', (req, res) => {
     });
 
 });
+
 app.patch('api/orders/additem', (req, res) => {
     //update the order_content
     var order_hash = req.body['order_hash'],
@@ -238,6 +239,7 @@ app.get('/api/canteens', function (req, res) {
 
 app.get('/api/canteens/:table_name', function (req, res) {
     var table_name = req.params.table_name;
+    console.log(table_name)
     db.query(`SELECT * FROM ${table_name}`, function (err, result, fields) {
         if (err) {
             throw err;
@@ -346,21 +348,39 @@ app.post('/api/joingroups', function (req, res) {
     });
 });
 
-app.delete('/api/leavegroup', function (req, res) {
-    var member_id = req.body.member_id;
-    var group_id = req.body.group_id;
+// app.delete('/api/leavegroup', function (req, res) {
+//     var member_id = req.body.member_id;
+//     var group_id = req.body.group_id;
 
-    console.log(group_id, member_id)
+//     console.log(group_id, member_id)
 
-    db.query("DELETE FROM group_members WHERE group_id = ? AND member_id = ?", [group_id, member_id], function (err, result, fields) {
-        if (err) {
-            throw err;
-        } else {
-            console.log(result);
-        }
+//     db.query("DELETE FROM group_members WHERE group_id = ? AND member_id = ?", [group_id, member_id], function (err, result, fields) {
+//         if (err) {
+//             throw err;
+//         } else {
+//             console.log(result);
+//         }
+//     });
+// });
+
+
+
+
+
+
+app.post('/api/items/fetch', (req, res)=>{
+    let canteen_id = req.body. canteen_id; 
+    console.log(canteen_id)
+
+    db.query(`SELECT FROM canteens WHERE canteen_id = ?`,canteen_id, (err,result,fields)=>{
+          if(err){
+              throw err
+          }
+          else{
+              console.log(result)
+          }
     });
 });
-
 
 app.listen(3005, function () {
     console.log("listening");
