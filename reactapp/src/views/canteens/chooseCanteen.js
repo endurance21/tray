@@ -5,54 +5,26 @@ import Canteen from './index'
 
 export default class ChooseCanteen extends React.Component{
 
-    rajeev = ()=>{
-        this.props.setCanteen(0);
+
+    createOrder = ()=>{
+      let inputs = window.document.querySelectorAll('input');
+
+     inputs.forEach((item,index)=>{
+        if(item.checked)
+        this.props.setCanteen(item.value)
+     })
+
+     this.props.setOrderName(this.refs.orderName.value);
+     this.props.createOrder();
+
     }
-    cautelya = ()=>{
-        this.props.setCanteen(1);
-    }
-    govind = ()=>{
-        this.props.setCanteen(2);
-    }
-    kasturba = ()=>{
-        this.props.setCanteen(3);
-    }
-    sarojni = ()=>{
-        this.props.setCanteen(4);
-    }
+
+    
     
     render(){
         return (
 
             <div>
-                 {/* <button className ={Styles.button} onClick = {this.rajeev} > RAJEEV</button>
-                 <button className ={Styles.button} onClick = {this.cautelya}  > CAUTELYA</button>
-                 <button className ={Styles.button} onClick = {this.govind} > GOVIND</button>
-                 <button className ={Styles.button} onClick = {this.kasturba} > KASTURBA</button>
-                 <button className ={Styles.button} onClick = {this.sarojni} > SAROJNI</button> */}
-
-                     {/* <input type = "radio">
-                         Rajeev
-                    </input>
-                    <ul>
-
-                     <li >
-                         cautelya
-                     </li>
-
-                        govind
-                     <li>
-                        kasturba
-                     </li>
-
-                     <li>
-                        sarojni
-                     </li>
-                     
-
-
-
-                 </ul> */}
 
 
                 <form>
@@ -74,9 +46,10 @@ export default class ChooseCanteen extends React.Component{
                 <div className = {Styles.input}>
                 <input id = "azaad" type="radio" name="gender" value="5"/> <label for = "azaad"> azaad</label>
                 </div>
-                  
-               <button onClick = {this.createOrder}> CREATE ORDER NOW </button>
+                <label for="ordername"> NAME OF ORDER</label><input  id ="ordername" ref = "orderName" />
                 </form>
+                <button onClick = {this.createOrder}> CREATE ORDER NOW </button>
+
 
 
 

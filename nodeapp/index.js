@@ -80,18 +80,33 @@ function hash() {
 app.post('/api/orders/create', (req, res) => {
     var order_name = req.body['order_name'],
         user_id = req.body['user_id'],
-        group_id = req.body['group_id'],
+        group_code = req.body['group_code'],
         canteen_id = req.body['canteen_id'],
         item_id = req.body['item_id'];
+        console.log(user_id)
 
     let order_hash = hash();
-    db.query(`INSERT INTO orders (order_hash,order_name,user_id,group_id,canteen_id,item_id) VALUES ('${order_hash}','${order_name}','${user_id}', '${group_id}', '${canteen_id}','${item_id}')`, (err, result, fields) => {
-        if (err) throw err;
-        else {
-            res.send("order created , with orde_hash: " + order_hash);
+    db.query(`SELECT group_id FROM group_table WHERE group_code = ?`, [group_code], function (err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+           
+
+            let group_id = result[0].group_id;
+            console.log(group_id);
+
+
+            db.query(`INSERT INTO orders (order_hash,order_name,user_id,group_id,canteen_id,item_id) VALUES ('${order_hash}','${order_name}','${user_id}', '${group_id}', '${canteen_id}','${item_id}')`, (err, result, fields) => {
+                if (err) throw err;
+                else {
+                    res.send("order created , with orde_hash: " + order_hash);
+                }
+            });
         }
     });
+   
 });
+
 app.delete('/api/orders/delete/:hash/:item_id', (req, res) => {
     //delete the food item from food item list
     let hashid = req.params.hash,
