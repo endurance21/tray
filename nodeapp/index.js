@@ -330,10 +330,10 @@ app.post('/api/joingroup', function (req, res) {
         } else {
            
             // group_id = result[0].group_id;
-            // console.log(typeof group_id);
+            // console.log(result);
 
             let group_id = result[0].group_id;
-            console.log(group_id);
+            console.log(result);
             // console.log(result)
             db.query("INSERT INTO group_members (group_id, member_id) VALUES ('" + group_id + "','" + member_id + "')", function (err, result, fields) {
                 if (err) {

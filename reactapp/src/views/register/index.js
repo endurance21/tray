@@ -1,7 +1,15 @@
 import React from 'react'
 import Styles from './main.module.css'
+import {Redirect} from 'react-router-dom'
 var axios = require('axios');
 export default class Register extends React.Component{
+
+    constructor(){
+        super();
+        this.state ={
+            login:''
+        }
+    }
     register = ()=>{
         if(this.refs.confirmPassword.value == this.refs.password.value &&this.refs.username.value){
             // console.log("he;;;")
@@ -13,6 +21,8 @@ export default class Register extends React.Component{
         {
             if(res){
                 console.log(res.data)
+                alert("user regitered go to login page");
+
             }
         }
             );
@@ -27,6 +37,12 @@ export default class Register extends React.Component{
     
     }
 
+    login = ()=>{
+        this.setState({
+            login:<Redirect to="/"/>
+        })
+    }
+
     render(){
      return (
          <div>
@@ -39,6 +55,8 @@ export default class Register extends React.Component{
 
             </form>
             <button className = {Styles.button} onClick = {this.register}> Register</button>
+            <button className = {Styles.button} onClick = {this.login}> Login </button>
+            {this.state.login}
 
          </div>
      )
