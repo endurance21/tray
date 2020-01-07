@@ -411,7 +411,7 @@ app.post('/api/getgroupid', (req, res)=>{
     let group_id; 
     console.log(member_id);
 
-    db.query(`SELECT group_id FROM group_members WHERE member_id = ?`,group_id, (err,result,fields)=>{
+    db.query(`SELECT group_id FROM group_members WHERE member_id = ?`,member_id, (err,result,fields)=>{
           if(err){
               throw err
           }
@@ -419,6 +419,21 @@ app.post('/api/getgroupid', (req, res)=>{
               console.log(result);
               group_id = result[0].group_id;
               res.send(group_id);
+          }
+    });
+});
+
+app.post('/api/getinfo', (req, res)=>{
+    let group_id = req.body.group_id; 
+    console.log(group_id);
+
+    db.query(`SELECT * FROM orders WHERE group_id = ?`,group_id, (err,result,fields)=>{
+          if(err){
+              throw err
+          }
+          else{
+              console.log(result);
+              res.send(result);
           }
     });
 });
