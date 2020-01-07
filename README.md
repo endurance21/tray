@@ -1,4 +1,4 @@
- A WEB APP FOR MANAGING our regular CANTEEN BIRTHDAY PARTY'S AT -R land in revolutionary way named as 
+ A WEB APP FOR MANAGING our regular CANTEEN PARTY'S AT -R land in revolutionary way named as 
  
  # TRAY
  
