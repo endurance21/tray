@@ -28,28 +28,20 @@ this project is under construction ;
 the api is ready just the UI is in the making;
 ...
 
-```
               ::::::::::::HOME VIEW:::::::::::::
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic11.png)
-```
-```
-             ::::::::::::CREATE GROUP:::::::::::::
-![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic12.png) 
-  ```
-  ```
-               ::::::::::::SELECT CANTEEN :::::::::::::
-![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic13.png)
-```
 
- ```            ::::::::::::ADMIN MODE :::::::::::::
+              ::::::::::::::CREATE GROUP:::::::::
+![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic12.png) 
+
+              ::::::::::::SELECT CANTEEN ::::::::
+![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic13.png)
+              ::::::::::ADMIN MODE ::::::::::::::
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic14.png)
-````
 
 this project has been made by 
-```
 1.DIVYANSHU RAJ      
 2.DEVASHISH YADAV
-```
 our portfolio link 
 
 ```
