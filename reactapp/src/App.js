@@ -110,7 +110,7 @@ class App extends React.Component{
             </Route>
             <Route path="/createGroup" exact>
               {<CreateGroup  resetGroup = {this.resetGroup} setGroupCode = {this.setGroupCode}></CreateGroup>}
-              { (this.state.groupcode)?(<div>YOUR GROUP CODE IS : {this.state.groupcode}</div>):''}
+              {/* { (this.state.groupcode)?(<div>YOUR GROUP CODE IS : {this.state.groupcode}</div>):''} */}
             </Route>
             <Route path="/joinGroup" exact>
               {<JoinGroup userId ={this.state.userId} ></JoinGroup>}
@@ -118,7 +118,7 @@ class App extends React.Component{
             </Route>
 
             <Route path="/orderPage" exact>
-              {<OrderPage  ></OrderPage>}
+              {<OrderPage groupCode = {this.state.groupcode} ></OrderPage>}
 
             </Route>
 

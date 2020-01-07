@@ -83,7 +83,7 @@ app.post('/api/orders/create', (req, res) => {
         group_code = req.body['group_code'],
         canteen_id = req.body['canteen_id'],
         item_id = req.body['item_id'];
-        console.log(user_id)
+        console.log(canteen_id)
 
     let order_hash = hash();
     db.query(`SELECT group_id FROM group_table WHERE group_code = ?`, [group_code], function (err, result, fields) {

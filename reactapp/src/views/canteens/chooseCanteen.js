@@ -1,6 +1,7 @@
 import React from 'react'
 import Styles from './main.module.css'
 import Canteen from './index'
+import {Link} from 'react-router-dom' 
 // var  axios  =  require('axios');
 
 export default class ChooseCanteen extends React.Component{
@@ -48,7 +49,7 @@ export default class ChooseCanteen extends React.Component{
                 </div>
                 <label for="ordername"> NAME OF ORDER</label><input  id ="ordername" ref = "orderName" />
                 </form>
-                <button onClick = {this.createOrder}> CREATE ORDER NOW </button>
+                <Link to = "/orderPage/order"><button onClick = {this.createOrder}> CREATE ORDER NOW </button> </Link>
 
 
 

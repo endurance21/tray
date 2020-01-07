@@ -1,6 +1,8 @@
 import React from 'react'
 import Styles from './main.module.css'
+import {Link} from 'react-router-dom'
 var  axios  =  require('axios');
+
 
 export default class CreateGroup extends React.Component{
 
@@ -28,7 +30,7 @@ export default class CreateGroup extends React.Component{
         return(
             <div>
                 <label className = {Styles.input} for ='groupName'> ENTER GROUP NAME </label><input ref= "groupName"></input>
-                <button className = {Styles.button} onClick = {this.createGroup} > CreateGroup</button>
+               <Link to = "/orderPage"> <button className = {Styles.button} onClick = {this.createGroup} > CreateGroup</button> </Link>
             </div>
         )
     }

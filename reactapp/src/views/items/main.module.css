@@ -1,0 +1,30 @@
+.itemId{
+   width:200px;
+   border:2px solid antiquewhite;
+   margin:10px auto;
+}
+
+.price{
+    width:200px;
+    border:2px solid antiquewhite;
+    margin:10px auto;
+}
+
+.description{
+    width:200px;
+    border:2px solid antiquewhite;
+    margin:10px auto;
+}
+
+.counter{
+    width:50px;
+    border:2px solid blue;
+    margin:10px auto;
+}
+
+.container{
+    border:5px solid black;
+    width:300px;
+    margin:10px auto;
+}
+
