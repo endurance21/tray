@@ -26,9 +26,10 @@ we have merged the idea of PHYSC GAME and IN-GENERAL-OMS and made out something 
 
 
 this project has been made by 
+```
 1.DIVYANSHU RAJ      
 2.DEVASHISH YADAV
-
+```
 our portfolio link 
 
 ```
