@@ -6,10 +6,11 @@ import Item from '../items/index'
 var axios  = require('axios')
 
 var canteen_id = '' ;
+var order_name;
 export default class OrderPage extends React.Component{
-    constructor(){
+    constructor(props){
         super();
-
+          console.log(props)
         this.state = {
             canteenId:'',
             orderName:''
@@ -52,6 +53,9 @@ export default class OrderPage extends React.Component{
     }
 
     setOrderName = (value)=>{
+        order_name = value;
+        console.log(order_name)
+
         this.setState({
             orderName:value
         })
@@ -69,11 +73,11 @@ export default class OrderPage extends React.Component{
     }
 
     render(){
+        console.log(this.props.groupCode)
         return (
             <div>
             <Router>
                 <Route path="/orderPage" exact>
-                {/* { (this.props.groupCode)?(<div>YOUR GROUP CODE IS : {this.props.groupCode}</div>):''} */}
                 <ChooseCanteen setCanteenId = {this.setCanteenId} setOrderName = {this.setOrderName}  createOrder = {this.createOrder}></ChooseCanteen>
                 { (this.state.canteenId)?this.state.canteenId:''}
                 { (this.state.orderName)?this.state.orderName:''}
@@ -81,7 +85,9 @@ export default class OrderPage extends React.Component{
             </Route>
             <Route path = "/orderPage/order" exact>
                   {/* {this.fetchItems()} */}
-                <div> your ORDER NAME IS : {this.state.orderName}</div>
+               { (this.props.groupCode)?(<div>YOUR GROUP CODE IS : {this.props.groupCode}</div>):''}
+               
+                <div> your ORDER NAME IS : {order_name}</div>
 
                 <div className={Styles.itemList}>
                     :::::::CHOOSE YOUR ITEMS ::::::::
@@ -90,6 +96,7 @@ export default class OrderPage extends React.Component{
                   <Item itemId = "3" price = "20rs" description = "asdf" ></Item>
                   <Item itemId = "4" price = "500rs" description = "akjasf" ></Item>
                </div>
+               <button className ={Styles.submit}>SUBMIT MY ORDER</button>
 
             </Route>
             </Router>

@@ -15,7 +15,7 @@ var axios  = require('axios');
 
 
 
-
+var groupCode ;
 class App extends React.Component{
     constructor(){
       super();
@@ -64,10 +64,11 @@ class App extends React.Component{
     })
   }
   setGroupCode = (value)=>{
-   
+   groupCode = value;
     let group = {
       groupcode:value
     }
+    // console.log(groupCode)
 
    let groups  = [];
    groups.push(group);
@@ -87,7 +88,7 @@ class App extends React.Component{
   }
 
   render(){
-    console.log(this.state.groupcode)
+    // console.log(this.state.groupcode)
     return (
 
       <Router>
@@ -122,7 +123,7 @@ class App extends React.Component{
             </Route>
 
             <Route path="/orderPage" exact>
-              {<OrderPage groupCode = {this.state.groupcode} ></OrderPage>}
+              {<OrderPage groupCode = {groupCode} ></OrderPage>}
 
             </Route>
 

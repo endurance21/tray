@@ -245,6 +245,7 @@ app.get('/api/canteens/:table_name', function (req, res) {
             throw err;
         } else {
             res.send(result);
+            // console.log(result)
         }
     });
 });
