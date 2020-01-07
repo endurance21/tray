@@ -449,7 +449,7 @@ app.post('/api/getgroupid2', (req, res)=>{
           }
           else{
               console.log(result);
-              group_id = result[0].group_id;
+              group_id = result[0];
               res.send(group_id);
           }
     });
