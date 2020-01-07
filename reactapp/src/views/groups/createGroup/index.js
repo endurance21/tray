@@ -5,7 +5,9 @@ var  axios  =  require('axios');
 export default class CreateGroup extends React.Component{
 
       
-
+     componentDidMount(){
+         this.props.resetGroup();
+     }
     createGroup = ()=>{
         var url = "http://localhost:3005/api/creategroup";
         var user =  JSON.parse(localStorage.getItem('user'));

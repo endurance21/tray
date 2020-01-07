@@ -1,0 +1,14 @@
+.button{
+    display: block;
+    margin:30px auto;
+}
+
+.input{
+    display: block;
+    width:200px;
+    border:2px solid red;
+    margin:30px auto
+
+
+}
+

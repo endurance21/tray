@@ -7,7 +7,11 @@ import Home from './views/home/index'
 import Styles from './main.module.css'
 import CreateGroup from './views/groups/createGroup/index'
 import JoinGroup from './views/groups/joinGroup/index'
+import orderPage from './views/orders/index'
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import OrderPage from './views/orders/index';
 var axios  = require('axios');
+
 
 
 
@@ -75,9 +79,17 @@ class App extends React.Component{
     })
   }
 
+  resetGroup = ()=>{
+    this.setState({
+      groupcode:''
+    })
+  }
+
   render(){
-    console.log(this.state.groupcode)
+    // console.log(this.state.groupcode)
     return (
+
+      <Router>
       <div className="App">
 
           {/* { (this.state.loggedIn) ?( <button className={Styles.button} onClick={this.logout}> LOGOUT</button> ): ''} */}
@@ -89,23 +101,31 @@ class App extends React.Component{
 
 
           <switch>
-            <Route path="/">
 
-          { (this.state.loggedIn) ?( <button className={Styles.button} onClick={this.logout}> LOGOUT</button> ): ''}
-          {(this.state.loggedIn) ?  (<Home username = {this.state.username }></Home>) : (<Login  isLoggedIn = {this.updateOnLogin} ></Login>)}
+
+            <Route path="/" exact>
+            { (this.state.loggedIn) ?( <button className={Styles.button} onClick={this.logout}> LOGOUT</button> ): ''}
+            {(this.state.loggedIn) ?  (<Home username = {this.state.username }></Home>) : (<Login  isLoggedIn = {this.updateOnLogin} ></Login>)}
 
             </Route>
-            <Route path="/createGroup">
-              {<CreateGroup   setGroupCode = {this.setGroupCode}></CreateGroup>}
+            <Route path="/createGroup" exact>
+              {<CreateGroup  resetGroup = {this.resetGroup} setGroupCode = {this.setGroupCode}></CreateGroup>}
               { (this.state.groupcode)?(<div>YOUR GROUP CODE IS : {this.state.groupcode}</div>):''}
             </Route>
-            <Route path="/joinGroup">
+            <Route path="/joinGroup" exact>
               {<JoinGroup userId ={this.state.userId} ></JoinGroup>}
 
             </Route>
+
+            <Route path="/orderPage" exact>
+              {<OrderPage  ></OrderPage>}
+
+            </Route>
+
           </switch>
 
       </div>
+      </Router>
    )
     }
 }
