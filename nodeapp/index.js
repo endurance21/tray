@@ -423,6 +423,21 @@ app.post('/api/getgroupid', (req, res)=>{
     });
 });
 
+app.post('/api/getinfo', (req, res)=>{
+    let group_id = req.body.group_id; 
+    console.log(group_id);
+
+    db.query(`SELECT * FROM orders WHERE group_id = ?`,group_id, (err,result,fields)=>{
+          if(err){
+              throw err
+          }
+          else{
+              console.log(result);
+              res.send(result);
+          }
+    });
+});
+
 app.listen(3005, function () {
     console.log("listening");
 });
