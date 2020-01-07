@@ -5,6 +5,7 @@
  ```
  CLONE THE REPO ,for connecting to sql database change username , password in nodeapp/index.js 
 ```
+```
 npm install   for installing the  dependecies in  both nodeapp and reactapp 
 ```
 
