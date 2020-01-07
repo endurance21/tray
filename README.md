@@ -29,6 +29,10 @@ the api is ready just the UI is in the making;
 ...
 
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic11.png)
+![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic12.png)
+![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic13.png)
+
+![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic14.png)
 
 this project has been made by 
 ```
