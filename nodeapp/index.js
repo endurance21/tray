@@ -372,20 +372,20 @@ app.post('/api/joingroups', function (req, res) {
     });
 });
 
-// app.delete('/api/leavegroup', function (req, res) {
-//     var member_id = req.body.member_id;
-//     var group_id = req.body.group_id;
+app.delete('/api/leavegroup', function (req, res) {
+    var member_id = req.body.member_id;
+    var group_id = req.body.group_id;
 
-//     console.log(group_id, member_id)
+    console.log(group_id, member_id)
 
-//     db.query("DELETE FROM group_members WHERE group_id = ? AND member_id = ?", [group_id, member_id], function (err, result, fields) {
-//         if (err) {
-//             throw err;
-//         } else {
-//             console.log(result);
-//         }
-//     });
-// });
+    db.query("DELETE FROM group_members WHERE member_id = ?", [ member_id], function (err, result, fields) {
+        if (err) {
+            throw err;
+        } else {
+            console.log(result);
+        }
+    });
+});
 
 
 
