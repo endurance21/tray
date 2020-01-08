@@ -1,3 +1,13 @@
 .button{
     display:block;
 }
+
+.itemList{
+    border:2px solid red;
+    width:30%;
+    height: 40vh;
+    overflow: scroll;
+    position:absolute;
+    top:30vh;
+    
+}

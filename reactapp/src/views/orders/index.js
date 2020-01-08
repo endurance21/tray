@@ -4,6 +4,7 @@ import ChooseCanteen from '../canteens/chooseCanteen';
 import {BrowserRouter as Router  , Route} from 'react-router-dom'
 import Item from '../items/index'
 import Member from '../member/index'
+import Order from '../order/index'
 var axios  = require('axios')
 
 var canteen_id = '' ;
@@ -11,7 +12,8 @@ var order_name = '';
 var object = [];
 var order_hash = ''
 var order_id = ''
-var members = []
+var members = [];
+var orders = []
 export default class OrderPage extends React.Component{
     constructor(props){
         super();
@@ -20,7 +22,8 @@ export default class OrderPage extends React.Component{
             canteenId:'',
             orderName:'',
             myorders:'',
-            members:''
+            members:'',
+            orderList:''
         }
     }
 
@@ -110,6 +113,7 @@ export default class OrderPage extends React.Component{
         })
 
         this.fetchMembers();
+        this.fetchOrders();
 
     }
 
@@ -202,6 +206,44 @@ export default class OrderPage extends React.Component{
         this.fetchMembers();
     }
 
+    updateOrderList =()=>{
+        this.fetchOrders();
+    }
+    fetchOrders = ()=>{
+        orders =[];
+        console.log("fetch oreder")
+        let url2  = "http://localhost:3005/api/order/orderId";
+        let data = {
+          order_name:this.state.orderName
+
+        }
+           
+        axios.post(url2, data).then((res)=>{
+            order_id  = res.data[0].order_id;
+            let url  = "http://localhost:3005/api/getorders";
+            let data = {
+                order_id:order_id
+            }
+
+            axios.post(url,data).then((res)=>{
+                console.log(res.data) 
+                for (let i = 0; i < res.data.length; i++) {
+                    orders.push({
+                        user_id:res.data[i].user_id ,
+                        item_id:res.data[i].item_id,
+                        quantity:res.data[i].quantity
+                    });
+                   
+                    this.setState({
+                        orderList:orders.map((order,index)=>(
+                            <Order user_id = {order.user_id} item_id={order.item_id} quantity={order.quantity}></Order>
+                        ))
+                    })
+                }
+            })
+        })
+    }
+
     render(){
         console.log(this.state.members)
         return (
@@ -220,8 +262,8 @@ export default class OrderPage extends React.Component{
                 <div> your ORDER NAME IS : {order_name}</div>
              
                 <div className={Styles.myorders}>
-                  Final Order Will APPEAR HERE
-                   {this.state.myorders}
+                  YOUR final Order
+                                     {this.state.myorders}
                </div>
 
                <div className ={Styles.members}>
@@ -238,8 +280,14 @@ export default class OrderPage extends React.Component{
                   
                </div>  
                <button className ={Styles.submit} onClick= {this.submit}>SUBMIT MY ORDER</button>
-
+               <div className={Styles.orderList}>
+              <button className ={Styles.submit} onClick= {this.updateOrderList}>update</button>
+                    ::::ALL ORDERS ::::::
+              {this.state.orderList}
+              </div>
+ 
             </Route>
+          
 
           
 

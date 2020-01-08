@@ -1,0 +1,24 @@
+.container{
+    border:2px solid red;
+    width:90%;
+    margin:10px auto;
+    padding:5px;
+}
+.item_id{
+    width:99%;
+    margin:2px auto;
+    background-color: aliceblue;
+
+}
+.user_id{
+    width:99%;
+    margin:2px auto;
+    background-color: aliceblue;
+
+}
+.quantity{
+    width:99%;
+    margin:2px auto;
+    background-color: aliceblue;
+
+}
