@@ -5,33 +5,36 @@ const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const pug = require('pug');
 // const PORT = 4009;
+const db  = require('./database/connect');
 const cors = require('cors');
 const app = express();
 
 app.use(cors());
 
-const db = mysql.createConnection({
-    host: "localhost",
-    user: "root",
-    password: "Iamhappy2018@",
-    database: "tray"
-});
+// const db = mysql.createConnection({
+//     host: "localhost",
+//     user: "root",
+//     password: "Iamhappy2018@",
+//     database: "tray"
+// });
 
-//Iamhappy2018@
-//devu1099
+// //Iamhappy2018@
+// //devu1099
 
-db.connect(function (err) {
-    if (err) {
-        throw err
-    };
-    console.log("Connected!");
-    db.query("SELECT * FROM accounts1", function (err, result, fields) {
-        if (err) {
-            throw err
-        };
-        //   console.log(result[1]);
-    })
-});
+// db.connect(function (err) {
+//     if (err) {
+//         throw err
+//     };
+//     console.log("Connected!");
+//     db.query("SELECT * FROM accounts1", function (err, result, fields) {
+//         if (err) {
+//             throw err
+//         };
+//         //   console.log(result[1]);
+//     })
+// });
+
+
     
 
 

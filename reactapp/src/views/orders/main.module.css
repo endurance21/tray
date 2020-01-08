@@ -21,6 +21,7 @@
     position:absolute;
     top:10vh;
     right:0px;
+    overflow-y:scroll;
 }
 
 .orderList{

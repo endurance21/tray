@@ -111,7 +111,7 @@ export default class OrderPage2 extends React.Component{
 
                 object.map((item, index)=>{
                   let data4 = {
-                      order_id:data[0].order_id,
+                      order_id:(data[0].order_id+1),
                       user_id:user.userId,
                       canteen_id:data[0].canteen_id,
                       item_id:(index+1),
