@@ -32,22 +32,43 @@ INSTALLING DEPENDENCIES:
 ```
 
 
-```
-people at IIT-R or in general face this commom issue of managing the orders of their party when large in numbers.
-we have merged the idea of PHYSC GAME and IN-GENERAL-OMS and made out something cool called as  # TRAY.
 
 ```
+         HOW TO USE IT
+```
 
-              ::::::::::::HOME VIEW:::::::::::::
+```
+First Register and then Login  IT WILL REDIRECT YOU TO HOMEPAGE 
+```
+
+```
+EITHER CHOOSE [CREATE GROUP] OR [JOIN GROUP]
+```
+```
+Choosing [CREATE GROUP] will make you ADMIN and you will get  a  UNIQUE GROUP CODE after you select CANTEEN and  ORDER NAME 
+```
+```
+register another User in another Browser or in incognito mode of same browser and this time SELECT [JOIN GROUP] option 
+and put the GROUP CODE you get from earlier process and yo! you are now part of that group
+```
+```
+now in LHS of screen you get items to select and submit you ORDER
+if you are admin  you can see all the orders placed by all the members joined in that GROUP 
+NOW you know the whole order and also 
+so the problem is solved and now you can sum up the order and submit it to CANTEEN OwNER
+```
+
+
+ :HOME VIEW:
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic11.png)
 
-              ::::::::::::::CREATE GROUP:::::::::
+ :CREATE GROUP:
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic12.png) 
 
-              ::::::::::::SELECT CANTEEN ::::::::
+  :SELECT CANTEEN :
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic13.png)
 \
-             ::::::::::::ADMIN MODE::::::::::::::
+  :ADMIN MODE:
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic14.png)
 
 this project has been made by 
