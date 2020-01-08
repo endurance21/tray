@@ -48,7 +48,7 @@ EITHER CHOOSE [CREATE GROUP] OR [JOIN GROUP]
 Choosing [CREATE GROUP] will make you ADMIN and you will get  a  UNIQUE GROUP CODE after you select CANTEEN and  ORDER NAME 
 ```
 ```
-register another User in another Browser or in incognito mode of same browser and this time SELECT [JOIN GROUP] option 
+register another User at [ http://localhost:3000/  ] in  another Browser or in incognito mode at  of same browser and this time SELECT [JOIN GROUP] option 
 and put the GROUP CODE you get from earlier process and yo! you are now part of that group
 ```
 ```
