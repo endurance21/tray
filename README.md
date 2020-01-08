@@ -4,8 +4,19 @@
  
  
  
+ 
  ```
- CLONE THE REPO ,for connecting to sql database change username , password in nodeapp/index.js 
+ CLONE THE REPO 
+ 
+```
+
+```
+CONNECTING TO DATABASE:
+1.crete a sqldatabase named "tray" using mysql or phpmyadmin
+
+2.cd tray/nodeapp/database/tray.sql and copy paste the file to "tray" database just created as mysql script
+
+3.cd tray/nodeapp/database/connect.js and change the password section , you see as 'XXXXXX' to your mysql password 
 ```
 ```
 npm install   for installing the  dependecies in  both nodeapp and reactapp 
