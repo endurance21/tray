@@ -26,7 +26,7 @@ INSTALLING DEPENDENCIES:
 ```
 
 ```
-  8. nodemon indes.js                 { for starting server}
+  8. nodemon index.js                 { for starting server}
   9. open other window of terminal and navigate to tray/reactapp
   10. npm start                       { for starting react app}
 ```
