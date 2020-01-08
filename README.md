@@ -7,7 +7,6 @@
  
  ```
  CLONE THE REPO 
- 
 ```
 
 ```
@@ -19,25 +18,25 @@ CONNECTING TO DATABASE:
 3.cd tray/nodeapp/database/connect.js and change the password section , you see as 'XXXXXX' to your mysql password 
 ```
 ```
-npm install   for installing the  dependecies in  both nodeapp and reactapp 
+INSTALLING DEPENDENCIES:
+  4. cd reactapp/ 
+  5.npm install 
+  6.cd ../nodeapp 
+  7. npm install 
 ```
 
 ```
-npm start for starting reactapp
+  8. nodemon indes.js                 { for starting server}
+  9. open other window of terminal and navigate to tray/reactapp
+  10. npm start                       { for starting react app}
 ```
-```
-nodemon nodeapp for starting server
-```
+
 
 ```
 people at IIT-R or in general face this commom issue of managing the orders of their party when large in numbers.
 we have merged the idea of PHYSC GAME and IN-GENERAL-OMS and made out something cool called as  # TRAY.
 
 ```
-...
-this project is under construction ; 
-the api is ready just the UI is in the making;
-...
 
               ::::::::::::HOME VIEW:::::::::::::
 ![DEMO](https://github.com/endurance21/tray/blob/master/demoImages/pic11.png)
