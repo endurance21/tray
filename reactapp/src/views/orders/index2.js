@@ -6,8 +6,10 @@ var axios  = require('axios')
 var canteen_id = '' ;
 var order_name = '';
 var object = [];
-var order_hash = ''
-var order_id = ''
+var order_hash = '';
+var order_id = '';
+// var ipAdress = "3.135.217.56"
+var path = "http://3.135.217.56:3005"
 export default class OrderPage2 extends React.Component{
     constructor(props){
         super();
@@ -25,7 +27,7 @@ export default class OrderPage2 extends React.Component{
 }
     fetchItems =()=>{
 
-        let url2 = "http://localhost:3005/api/getgroupid";
+        let url2 = path+"/api/getgroupid";
         var user =  JSON.parse(localStorage.getItem('user'));
        let data2 ={
            member_id:user.userId
@@ -33,14 +35,14 @@ export default class OrderPage2 extends React.Component{
 
        axios.post(url2 ,data2).then((res)=>{
            let group_id = res.data.group_id;
-           let url = "http://localhost:3005/api/getinfo";
+           let url = path+"/api/getinfo";
            axios.post(url,{group_id:group_id}).then((res)=>{
                let data  = res.data;
                this.setState({
                    userData:data
                })
 
-               let url  = "http://localhost:3005/api/canteens/" + "rajeev_item_list";
+               let url  = path+"/api/canteens/" + "rajeev_item_list";
                let data2 = {
                 canteen_id:data.canteen_id
                 }
@@ -86,7 +88,7 @@ export default class OrderPage2 extends React.Component{
        //  this.getOrderId();
         
 
-        let url2 = "http://localhost:3005/api/getgroupid";
+        let url2 = path+"/api/getgroupid";
         var user =  JSON.parse(localStorage.getItem('user'));
        let data2 ={
            member_id:user.userId

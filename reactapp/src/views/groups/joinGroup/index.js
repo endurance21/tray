@@ -6,8 +6,7 @@ import OrderPage2 from '../../orders/index2'
 import {BrowserRouter as Router } from 'react-router-dom'
 import OrderPage from '../../orders'
 var  axios  =  require('axios');
-
-
+var path = "http://3.135.217.56:3005"
 export default class JoinGroup extends React.Component{
 
 constructor(){
@@ -22,7 +21,7 @@ constructor(){
     joinGroup = ()=>{
 
 
-       let  url = "http://localhost:3005/api/joingroup";
+       let  url = path+"/api/joingroup";
        var user =  JSON.parse(localStorage.getItem('user'));
        let data = {
            group_code:this.refs.groupCode.value,
