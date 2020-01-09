@@ -13,7 +13,12 @@ var object = [];
 var order_hash = ''
 var order_id = ''
 var members = [];
-var orders = []
+
+var orders = [];
+var path = "http://3.135.217.56:3005";
+
+
+
 var numberOfSubmit = 0;
 // var orderHas
 export default class OrderPage extends React.Component{
@@ -72,7 +77,7 @@ export default class OrderPage extends React.Component{
         console.log(canteen_id)
         let user  = JSON.parse(localStorage.getItem('user'));
         let groups = JSON.parse(localStorage.getItem('groups'));
-        let url  = "http://localhost:3005/api/orders/create";
+        let url  = path+"/api/orders/create";
         console.log(order_name);
         
         let data = {
@@ -100,7 +105,7 @@ export default class OrderPage extends React.Component{
     fetchItems =()=>{
         console.log("fetch items")
 
-        let url  = "http://localhost:3005/api/canteens/" + "rajeev_item_list";
+        let url  = path+"/api/canteens/" + "rajeev_item_list";
         let data = {
             canteen_id:(canteen_id+1)
         }
@@ -142,7 +147,7 @@ export default class OrderPage extends React.Component{
         console.log(order_id);
         numberOfSubmit++;
         let user =  JSON.parse(localStorage.getItem('user'));
-        let deleteurl = "http://localhost:3005/api/orders/deleteitem";
+        let deleteurl = path+"/api/orders/deleteitem";
 
         if(numberOfSubmit>1)
         object.map((item, index)=>{
@@ -164,14 +169,17 @@ export default class OrderPage extends React.Component{
                  <li> {item.item_name} :{item.quantity}</li>
              ))
          });
-         let url  = "http://localhost:3005/api/orders/additem" ;
+
+         let url  = path+"/api/orders/additem";
+         let user =  JSON.parse(localStorage.getItem('user'));
+
         //  this.getOrderId();
-         let url2  = "http://localhost:3005/api/order/orderId";
+         let url2  = path+"/api/order/orderId";
          let data = {
            order_hash:order_hash
  
          }
-         let url3 = "http://localhost:3005/api/orders/delete//'"
+         let url3 = path+"/api/orders/delete//'"
  
          axios.post(url2, data).then((res)=>{
                   order_id  = res.data[0].order_id;
@@ -201,7 +209,7 @@ export default class OrderPage extends React.Component{
         //     members:''
         // })
         members = [];
-        let url  = "http://localhost:3005/api/getgroupid2";
+        let url  = path+"/api/getgroupid2";
         let group_code = JSON.parse(localStorage.getItem('groups')).groupcode;
         let data = {
             group_code:group_code
@@ -210,7 +218,7 @@ export default class OrderPage extends React.Component{
         axios.post(url, data).then((res)=>{
             console.log(res)
               let group_id = res.data.group_id;
-              let url  = "http://localhost:3005/api/getmembers";
+              let url  = path+"/api/getmembers";
               let data = {
                   group_id:group_id
               }
@@ -242,8 +250,10 @@ export default class OrderPage extends React.Component{
     fetchOrders = ()=>{
         
         orders =[];
-        console.log("fetch order"); 
-        let url2  = "http://localhost:3005/api/order/orderId";
+
+        console.log("fetch oreder")
+        let url2  = path+"/api/order/orderId";
+
         let data = {
           order_hash:order_hash
 
@@ -253,8 +263,11 @@ export default class OrderPage extends React.Component{
         axios.post(url2, data).then((res)=>{
             console.log(res.data)
             order_id  = res.data[0].order_id;
+
+            let url  = path+"/api/getorders";
+
             console.log(order_id)
-            let url  = "http://localhost:3005/api/getorders";
+            
             let data = {
                 order_id:order_id
             } 
@@ -278,14 +291,14 @@ export default class OrderPage extends React.Component{
         })
     }
    leaveGroup = ()=>{
-       let url = "http://localhost:3005/api/leavegroup" ;
+       let url = path+"/api/leavegroup" ;
        let user =  JSON.parse(localStorage.getItem('user'));
        let data  = {
            member_id:user.userId,
        }
        axios.post(url,data).then((res)=>{
                alert("group leaved")
-               window.location.href = "http://localhost:3000";
+               window.location.href = "http://3.135.217.56:3000";
        })
    }
     render(){

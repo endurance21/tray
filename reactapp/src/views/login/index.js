@@ -2,6 +2,7 @@ import React from 'react'
 import Styles from './main.module.css'
 import {Redirect } from 'react-router-dom'
 var  axios  =  require('axios');
+var path = "http://3.135.217.56:3005"
 export default class Login extends React.Component{
     constructor(){
         super();
@@ -10,7 +11,7 @@ export default class Login extends React.Component{
         }
     }
     login = ()=>{
-        var url = "http://localhost:3005/login";
+        var url = path+"/login";
         var data =  {
             'username':this.refs.username.value,
             'Password':this.refs.password.value

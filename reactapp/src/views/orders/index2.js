@@ -6,9 +6,14 @@ var axios  = require('axios')
 var canteen_id = '' ;
 var order_name = '';
 var object = [];
-var order_hash = ''
-var order_id = ''
+
+var order_hash = '';
+var order_id = '';
+var ipAdress = "3.135.217.56"
+var path = "http://3.135.217.56:3005"
+
 var numberOfSubmit = 0;
+
 export default class OrderPage2 extends React.Component{
     constructor(props){
         super();
@@ -26,7 +31,7 @@ export default class OrderPage2 extends React.Component{
 }
     fetchItems =()=>{
 
-        let url2 = "http://localhost:3005/api/getgroupid";
+        let url2 = path+"/api/getgroupid";
         var user =  JSON.parse(localStorage.getItem('user'));
        let data2 ={
            member_id:user.userId
@@ -34,14 +39,14 @@ export default class OrderPage2 extends React.Component{
 
        axios.post(url2 ,data2).then((res)=>{
            let group_id = res.data.group_id;
-           let url = "http://localhost:3005/api/getinfo";
+           let url = path+"/api/getinfo";
            axios.post(url,{group_id:group_id}).then((res)=>{
                let data  = res.data;
                this.setState({
                    userData:data
                })
 
-               let url  = "http://localhost:3005/api/canteens/" + "rajeev_item_list";
+               let url  = path+"/api/canteens/"+"rajeev_item_list";
                let data2 = {
                 canteen_id:data.canteen_id
                 }
@@ -87,7 +92,7 @@ export default class OrderPage2 extends React.Component{
 
         numberOfSubmit++;
         let user =  JSON.parse(localStorage.getItem('user'));
-        let deleteurl = "http://localhost:3005/api/orders/deleteitem";
+        let deleteurl = path+"/api/orders/deleteitem";
 
         if(numberOfSubmit>1)
         object.map((item, index)=>{
@@ -109,7 +114,10 @@ export default class OrderPage2 extends React.Component{
        //  this.getOrderId();
         
 
-        let url2 = "http://localhost:3005/api/getgroupid";
+
+        let url2 = path+"/api/getgroupid";
+        var user =  JSON.parse(localStorage.getItem('user'));
+
         // var user =  JSON.parse(localStorage.getItem('user'));
        let data2 ={
            member_id:user.userId
@@ -118,19 +126,24 @@ export default class OrderPage2 extends React.Component{
         let group_id = res.data.group_id;
         console.log(res.data)
 
-        let url = "http://localhost:3005/api/getinfo";
+        let url = path+"/api/getinfo";
         axios.post(url,{group_id:group_id}).then((res)=>{
             console.log(res)
             let data  = res.data;
+
             // let url3  = "http://localhost:3005/api/order/orderId";
             // let data3 = {
             //   order_:order_name
+
     
             // }
             
 
+
+//             axios.post(url3, data3).then((res)=>{
+//                 let url  = path+"/api/orders/additem" 
             // axios.post(url3, data).then((res)=>{
-                let url  = "http://localhost:3005/api/orders/additem" ;
+                let url  = path+"/api/orders/additem" ;
 
                 object.map((item, index)=>{
                   let data4 = {
@@ -158,7 +171,7 @@ export default class OrderPage2 extends React.Component{
        
    }
    leaveGroup = ()=>{
-    let url = "http://localhost:3005/api/leavegroup" ;
+    let url = path+"/api/leavegroup" ;
     let user =  JSON.parse(localStorage.getItem('user'));
     let data  = {
         member_id:user.userId,
@@ -166,7 +179,7 @@ export default class OrderPage2 extends React.Component{
     // console.log(data)
     axios.post(url,data).then((res)=>{
         alert("group leaved")
-        window.location.href = "http://localhost:3000";
+        window.location.href = "http://"+ipAdress+":3000";
     })
 }
 
