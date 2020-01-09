@@ -105,7 +105,7 @@ app.post('/api/orders/create', (req, res) => {
             db.query(`INSERT INTO orders (order_hash,order_name,user_id,group_id,canteen_id,item_id) VALUES ('${order_hash}','${order_name}','${user_id}', '${group_id}', '${canteen_id}','${item_id}')`, (err, result, fields) => {
                 if (err) throw err;
                 else {
-                    res.send("order created , with orde_hash: " + order_hash);
+                    res.send({order_hash:order_hash});
                 }
             });
         }
@@ -115,9 +115,9 @@ app.post('/api/orders/create', (req, res) => {
 
 app.post('/api/order/orderId',(req,res)=>{
 
-   let order_name = req.body.order_name;
-//    console.log(order_name)
-   db.query(`SELECT order_id FROM orders WHERE order_name = ?`,order_name,(err,result,fields)=>{
+   let order_hash = req.body.order_hash;
+   console.log(order_hash)
+   db.query(`SELECT order_id FROM orders WHERE order_hash = ?`,[order_hash],(err,result,fields)=>{
        if(err){
            throw err
        }else{
@@ -159,7 +159,22 @@ app.post('/api/orders/additem', (req, res) => {
     db.query(`INSERT INTO  orders_content (order_id,user_id,canteen_id,item_id,quantity) VALUES('${order_id}','${user_id}','${canteen_id}','${item_id}','${quantity}')`, (err, result, fields) => {
         if (err) throw err;
         else {
-            res.send("your order item added sucessfully");
+            res.send("your submission is updated");
+        }
+    })
+
+});
+app.post('/api/orders/deleteitem', (req, res) => {
+    //update the order_content
+    var order_id = req.body['order_id'],
+        user_id = req.body['user_id'],
+        canteen_id = req.body['canteen_id'],
+        item_id = req.body['item_id'];
+
+    db.query(`DELETE FROM orders_content WHERE user_id = ?`, user_id , (err, result, fields) => {
+        if (err) throw err;
+        else {
+            res.send("last submission was deleted");
         }
     })
 
@@ -375,17 +390,19 @@ app.post('/api/joingroups', function (req, res) {
     });
 });
 
-app.delete('/api/leavegroup', function (req, res) {
-    var member_id = req.body.member_id;
-    var group_id = req.body.group_id;
+app.post('/api/leavegroup', function (req, res) {
 
-    console.log(group_id, member_id)
+    var member_id = req.body.member_id;
+    // var group_id = req.body.group_id;
+
+    // console.log(group_id, member_id)
 
     db.query("DELETE FROM group_members WHERE member_id = ?", [ member_id], function (err, result, fields) {
         if (err) {
             throw err;
         } else {
             console.log(result);
+            res.send("1")
         }
     });
 });

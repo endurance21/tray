@@ -13,10 +13,14 @@ var object = [];
 var order_hash = ''
 var order_id = ''
 var members = [];
+
 var orders = [];
 var path = "http://3.135.217.56:3005";
 
 
+
+var numberOfSubmit = 0;
+// var orderHas
 export default class OrderPage extends React.Component{
     constructor(props){
         super();
@@ -31,6 +35,12 @@ export default class OrderPage extends React.Component{
     }
 
     componentDidMount(){
+        let temp = this;
+        window.addEventListener('beforeunload', function (e) {
+            e.preventDefault();
+            e.returnValue = '';
+            temp.leaveGroup();
+        });
 
     }
 
@@ -81,17 +91,19 @@ export default class OrderPage extends React.Component{
         console.log(data)
         axios.post(url, data).then((res)=>{
                console.log(res.data)
+            order_hash = res.data.order_hash;
+            console.log(order_hash)
+            this.fetchItems();
+
         })
-        this.fetchItems();
+
     }
 
    
 
 
     fetchItems =()=>{
-       
-       
-
+        console.log("fetch items")
 
         let url  = path+"/api/canteens/" + "rajeev_item_list";
         let data = {
@@ -130,18 +142,41 @@ export default class OrderPage extends React.Component{
       
     }
 
+
     submit  = ()=>{
+        console.log(order_id);
+        numberOfSubmit++;
+        let user =  JSON.parse(localStorage.getItem('user'));
+        let deleteurl = path+"/api/orders/deleteitem";
+
+        if(numberOfSubmit>1)
+        object.map((item, index)=>{
+            let data = {
+                order_id:order_id,
+                user_id:user.userId,
+                canteen_id:canteen_id,
+                item_id:(index+1),
+            } ;
+            axios.post(deleteurl,data).then((res)=>{
+                console.log(res.data);
+            })
+         })
+
+      
+
          this.setState({
              myorders:object.map((item,index)=>(
                  <li> {item.item_name} :{item.quantity}</li>
              ))
          });
+
          let url  = path+"/api/orders/additem";
          let user =  JSON.parse(localStorage.getItem('user'));
+
         //  this.getOrderId();
          let url2  = path+"/api/order/orderId";
          let data = {
-           order_name:this.state.orderName
+           order_hash:order_hash
  
          }
          let url3 = path+"/api/orders/delete//'"
@@ -213,23 +248,32 @@ export default class OrderPage extends React.Component{
         this.fetchOrders();
     }
     fetchOrders = ()=>{
+        
         orders =[];
+
         console.log("fetch oreder")
         let url2  = path+"/api/order/orderId";
+
         let data = {
-          order_name:this.state.orderName
+          order_hash:order_hash
 
         }
+        console.log(data)
            
         axios.post(url2, data).then((res)=>{
+            console.log(res.data)
             order_id  = res.data[0].order_id;
+
             let url  = path+"/api/getorders";
+
+            console.log(order_id)
+            
             let data = {
                 order_id:order_id
-            }
-
+            } 
             axios.post(url,data).then((res)=>{
-                console.log(res.data) 
+                console.log(res.data)
+
                 for (let i = 0; i < res.data.length; i++) {
                     orders.push({
                         user_id:res.data[i].user_id ,
@@ -246,9 +290,19 @@ export default class OrderPage extends React.Component{
             })
         })
     }
-
+   leaveGroup = ()=>{
+       let url = path+"/api/leavegroup" ;
+       let user =  JSON.parse(localStorage.getItem('user'));
+       let data  = {
+           member_id:user.userId,
+       }
+       axios.post(url,data).then((res)=>{
+               alert("group leaved")
+               window.location.href = "http://3.135.217.56:3000";
+       })
+   }
     render(){
-        console.log(this.state.members)
+        // console.log(this.state.members)
         return (
             <div>
             <Router>
@@ -259,7 +313,8 @@ export default class OrderPage extends React.Component{
 
             </Route>
             <Route path = "/orderPage/order" exact>
-
+              <button className ={Styles.leaveGroup } onClick= {this.leaveGroup}>LEAVE GROUP</button>
+                 
                { (this.props.groupCode)?(<div>YOUR GROUP CODE IS : {this.props.groupCode}</div>):''}
                
                 <div> your ORDER NAME IS : {order_name}</div>
@@ -287,11 +342,11 @@ export default class OrderPage extends React.Component{
               <button className ={Styles.submit} onClick= {this.updateOrderList}>update</button>
                     ::::ALL ORDERS ::::::
               {this.state.orderList}
+
               </div>
  
             </Route>
           
-
           
 
 

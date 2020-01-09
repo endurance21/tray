@@ -6,4 +6,4 @@ const db = mysql.createConnection({
     database: "tray"
 });
 
-module.exports  = db
+module.exports  = db 
