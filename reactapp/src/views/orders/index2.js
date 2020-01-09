@@ -42,7 +42,7 @@ export default class OrderPage2 extends React.Component{
                    userData:data
                })
 
-               let url  = path+"/api/canteens/" + "rajeev_item_list";
+               let url  = path+"/api/canteens/"+"rajeev_item_list";
                let data2 = {
                 canteen_id:data.canteen_id
                 }
@@ -97,11 +97,11 @@ export default class OrderPage2 extends React.Component{
         let group_id = res.data.group_id;
         console.log(res.data)
 
-        let url = "http://localhost:3005/api/getinfo";
+        let url = path+"/api/getinfo";
         axios.post(url,{group_id:group_id}).then((res)=>{
             console.log(res)
             let data  = res.data;
-            let url3  = "http://localhost:3005/api/order/orderId";
+            let url3  = path+"/api/order/orderId";
             let data3 = {
               order_name:order_name
     
@@ -109,7 +109,7 @@ export default class OrderPage2 extends React.Component{
             console.log(data)
 
             axios.post(url3, data3).then((res)=>{
-                let url  = "http://localhost:3005/api/orders/additem" ;
+                let url  = path+"/api/orders/additem" ;
 
                 object.map((item, index)=>{
                   let data4 = {

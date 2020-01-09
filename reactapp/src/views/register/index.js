@@ -2,6 +2,7 @@ import React from 'react'
 import Styles from './main.module.css'
 import {Redirect} from 'react-router-dom'
 var axios = require('axios');
+var path = "http://3.135.217.56:3005"
 export default class Register extends React.Component{
 
     constructor(){
@@ -17,7 +18,7 @@ export default class Register extends React.Component{
             'username':this.refs.username.value,
             'Password':this.refs.password.value
         }
-        axios.post('http://localhost:3005/register' , data).then((res) => 
+        axios.post(path+'/register' , data).then((res) => 
         {
             if(res){
                 console.log(res.data)
