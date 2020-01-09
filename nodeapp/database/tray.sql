@@ -47,10 +47,10 @@ CREATE TABLE `accounts1` (
 -- Dumping data for table `accounts1`
 --
 
-INSERT INTO `accounts1` (`id`, `username`, `password`) VALUES
-(1, 'deva', 'lauda'),
-(2, 'divya', 'hvhjgj'),
-(3, '113', '123');
+-- INSERT INTO `accounts1` (`id`, `username`, `password`) VALUES
+-- (1, 'deva', 'lauda'),
+-- (2, 'divya', 'hvhjgj'),
+-- (3, '113', '123');
 
 -- --------------------------------------------------------
 
@@ -120,17 +120,17 @@ CREATE TABLE `group_members` (
 --
 
 INSERT INTO `group_members` (`group_id`, `member_id`, `is_admin`) VALUES
-(9, 3, 1),
-(10, 3, 1),
-(11, 3, 1),
-(12, 3, 1),
-(13, 3, 1),
-(14, 3, 1),
-(15, 3, 1),
-(16, 3, 1),
-(17, 3, 1),
-(18, 3, 1),
-(19, 3, 1);
+-- (9, 3, 1),
+-- (10, 3, 1),
+-- (11, 3, 1),
+-- (12, 3, 1),
+-- (13, 3, 1),
+-- (14, 3, 1),
+-- (15, 3, 1),
+-- (16, 3, 1),
+-- (17, 3, 1),
+-- (18, 3, 1),
+-- (19, 3, 1);
 
 -- --------------------------------------------------------
 
@@ -148,19 +148,19 @@ CREATE TABLE `group_table` (
 -- Dumping data for table `group_table`
 --
 
-INSERT INTO `group_table` (`group_id`, `group_name`, `group_code`) VALUES
-(8, 'lauda', 305893),
-(9, 'divyanshu', 877994),
-(10, 'bs hgana hai', 270956),
-(11, 'sfddsds', 740412),
-(12, 'srtrtdgf', 604076),
-(13, 'dsdvs', 854322),
-(14, 'asddsvrs', 977874),
-(15, 'dsdvces', 715336),
-(16, 'cvdsvc', 609302),
-(17, 'fdvfv', 676839),
-(18, 'vdsvd', 762454),
-(19, 'vjhgjhm', 887460);
+-- INSERT INTO `group_table` (`group_id`, `group_name`, `group_code`) VALUES
+-- -- (8, 'lauda', 305893),
+-- -- (9, 'divyanshu', 877994),
+-- -- (10, 'bs hgana hai', 270956),
+-- -- (11, 'sfddsds', 740412),
+-- -- (12, 'srtrtdgf', 604076),
+-- -- (13, 'dsdvs', 854322),
+-- -- (14, 'asddsvrs', 977874),
+-- -- (15, 'dsdvces', 715336),
+-- -- (16, 'cvdsvc', 609302),
+-- -- (17, 'fdvfv', 676839),
+-- -- (18, 'vdsvd', 762454),
+-- -- (19, 'vjhgjhm', 887460);
 
 -- --------------------------------------------------------
 
@@ -182,18 +182,18 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`order_id`, `order_hash`, `order_name`, `user_id`, `group_id`, `canteen_id`, `item_id`) VALUES
-(1, 'a0fa4l', '', 3, 9, 0, 0),
-(2, 'o3jzh6', '', 3, 10, 0, 0),
-(3, 'k51rlb', '', 3, 11, 0, 0),
-(4, 'y5nm8m', '', 3, 12, 0, 0),
-(5, 'ugzou7', '', 3, 13, 0, 0),
-(6, '0yl3r3', '', 3, 14, 0, 0),
-(7, 'qzc3ha', '', 3, 15, 0, 0),
-(8, 'bhmpxn', '', 3, 16, 0, 0),
-(9, 'qj2abl', '', 3, 17, 0, 0),
-(10, 'i6jsh3', '', 3, 18, 0, 0),
-(11, '6vro8c', '', 3, 19, 0, 0);
+-- INSERT INTO `orders` (`order_id`, `order_hash`, `order_name`, `user_id`, `group_id`, `canteen_id`, `item_id`) VALUES
+-- (1, 'a0fa4l', '', 3, 9, 0, 0),
+-- (2, 'o3jzh6', '', 3, 10, 0, 0),
+-- (3, 'k51rlb', '', 3, 11, 0, 0),
+-- (4, 'y5nm8m', '', 3, 12, 0, 0),
+-- (5, 'ugzou7', '', 3, 13, 0, 0),
+-- (6, '0yl3r3', '', 3, 14, 0, 0),
+-- (7, 'qzc3ha', '', 3, 15, 0, 0),
+-- (8, 'bhmpxn', '', 3, 16, 0, 0),
+-- (9, 'qj2abl', '', 3, 17, 0, 0),
+-- (10, 'i6jsh3', '', 3, 18, 0, 0),
+-- (11, '6vro8c', '', 3, 19, 0, 0);
 
 -- --------------------------------------------------------
 
