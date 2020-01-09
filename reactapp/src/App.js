@@ -9,7 +9,7 @@ import Register from './views/register/index'
 import CreateGroup from './views/groups/createGroup/index'
 import JoinGroup from './views/groups/joinGroup/index'
 import orderPage from './views/orders/index'
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Link, BrowserRouter as Router ,Switch} from 'react-router-dom'
 import OrderPage from './views/orders/index';
 var axios  = require('axios');
 
@@ -99,7 +99,7 @@ class App extends React.Component{
 
 
 
-          <switch>
+          <Switch>
 
            <Route path="/register" exact>
 
@@ -124,7 +124,7 @@ class App extends React.Component{
 
             </Route>
 
-          </switch>
+          </Switch>
 
       </div>
       </Router>
