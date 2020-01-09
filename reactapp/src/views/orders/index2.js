@@ -115,7 +115,7 @@ export default class OrderPage2 extends React.Component{
 
 
         let url2 = path+"/api/getgroupid";
-        var user =  JSON.parse(localStorage.getItem('user'));
+//         var user =  JSON.parse(localStorage.getItem('user'));
 
        let data2 ={
            member_id:user.userId
