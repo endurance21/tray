@@ -110,15 +110,13 @@ export default class OrderPage2 extends React.Component{
                 <li> {item.item_name} :{item.quantity}</li>
             ))
         });
-        // let user =  JSON.parse(localStorage.getItem('user'));
-       //  this.getOrderId();
+       
         
 
 
         let url2 = path+"/api/getgroupid";
         var user =  JSON.parse(localStorage.getItem('user'));
 
-        // var user =  JSON.parse(localStorage.getItem('user'));
        let data2 ={
            member_id:user.userId
        }
@@ -131,18 +129,10 @@ export default class OrderPage2 extends React.Component{
             console.log(res)
             let data  = res.data;
 
-            // let url3  = "http://localhost:3005/api/order/orderId";
-            // let data3 = {
-            //   order_:order_name
-
-    
-            // }
+            
             
 
 
-//             axios.post(url3, data3).then((res)=>{
-//                 let url  = path+"/api/orders/additem" 
-            // axios.post(url3, data).then((res)=>{
                 let url  = path+"/api/orders/additem" ;
 
                 object.map((item, index)=>{
@@ -160,14 +150,12 @@ export default class OrderPage2 extends React.Component{
                })
       
 
-    //    })
 
         })
     });
 
        
        
-       // this.getOrderId();
        
    }
    leaveGroup = ()=>{
@@ -176,7 +164,6 @@ export default class OrderPage2 extends React.Component{
     let data  = {
         member_id:user.userId,
     }
-    // console.log(data)
     axios.post(url,data).then((res)=>{
         alert("group leaved")
         window.location.href = "http://"+ipAdress+":3000";
